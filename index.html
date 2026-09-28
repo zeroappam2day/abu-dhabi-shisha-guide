@@ -1,0 +1,634 @@
+<title>Abu Dhabi Shisha Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  :root {
+    --bg: #F4F0E8;
+    --bg-card: #FFFFFF;
+    --bg-map-overlay: rgba(244,240,232,0.95);
+    --text: #2C2A26;
+    --text-secondary: #5E5A52;
+    --text-muted: #8A857B;
+    --accent: #C07A3E;
+    --accent-light: rgba(192,122,62,0.12);
+    --sage: #6B7E63;
+    --sage-light: rgba(107,126,99,0.1);
+    --border: #DDD7CC;
+    --border-light: #EAE5DB;
+    --shadow: rgba(44,42,38,0.08);
+    --shadow-strong: rgba(44,42,38,0.14);
+    --marker-active: #C07A3E;
+    --tag-bg: #F0EBE2;
+    --tag-text: #6B5D4F;
+    --star: #D4A43E;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1C1B18;
+      --bg-card: #26251F;
+      --bg-map-overlay: rgba(28,27,24,0.95);
+      --text: #E4E0D8;
+      --text-secondary: #B0ACA4;
+      --text-muted: #7A7670;
+      --accent: #D49050;
+      --accent-light: rgba(212,144,80,0.15);
+      --sage: #8EA484;
+      --sage-light: rgba(142,164,132,0.12);
+      --border: #3A3832;
+      --border-light: #32302A;
+      --shadow: rgba(0,0,0,0.25);
+      --shadow-strong: rgba(0,0,0,0.4);
+      --marker-active: #D49050;
+      --tag-bg: #32302A;
+      --tag-text: #B0A898;
+      --star: #D4A43E;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1C1B18;
+    --bg-card: #26251F;
+    --bg-map-overlay: rgba(28,27,24,0.95);
+    --text: #E4E0D8;
+    --text-secondary: #B0ACA4;
+    --text-muted: #7A7670;
+    --accent: #D49050;
+    --accent-light: rgba(212,144,80,0.15);
+    --sage: #8EA484;
+    --sage-light: rgba(142,164,132,0.12);
+    --border: #3A3832;
+    --border-light: #32302A;
+    --shadow: rgba(0,0,0,0.25);
+    --shadow-strong: rgba(0,0,0,0.4);
+    --marker-active: #D49050;
+    --tag-bg: #32302A;
+    --tag-text: #B0A898;
+    --star: #D4A43E;
+    color-scheme: dark;
+  }
+
+  body {
+    font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    line-height: 1.55;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Crimson Pro', Georgia, serif;
+    text-wrap: balance;
+  }
+
+  .header {
+    padding: 28px 24px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 6px;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .header p {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin: 0;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  #map {
+    width: 100%;
+    height: 420px;
+    border-bottom: 3px solid var(--accent);
+  }
+
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    padding: 16px 24px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border-light);
+    -webkit-overflow-scrolling: touch;
+  }
+  .filter-btn {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .filter-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .cards-section {
+    padding: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  .venue-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px var(--shadow);
+    transition: box-shadow 0.25s, border-color 0.25s;
+    cursor: pointer;
+  }
+  .venue-card:hover, .venue-card.highlighted {
+    box-shadow: 0 4px 16px var(--shadow-strong);
+    border-color: var(--accent);
+  }
+  .venue-card.highlighted {
+    outline: 2px solid var(--accent);
+    outline-offset: -1px;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    background: var(--border-light);
+  }
+  .card-image-placeholder {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    background: var(--sage-light);
+    color: var(--sage);
+  }
+
+  .card-body {
+    padding: 16px 18px 18px;
+  }
+  .card-top-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .card-name {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+    color: var(--text);
+  }
+  .card-price {
+    flex-shrink: 0;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 4px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+  }
+  .tag.highlight {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  .card-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .star {
+    width: 14px;
+    height: 14px;
+  }
+  .star-filled { color: var(--star); }
+  .star-empty { color: var(--border); }
+  .rating-text {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .card-review {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+  .card-review em {
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .card-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-light);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .detail-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  .legend {
+    padding: 20px 24px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .leaflet-popup-content-wrapper {
+    border-radius: 8px !important;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15) !important;
+  }
+  .leaflet-popup-content {
+    margin: 12px 16px !important;
+    font-family: 'IBM Plex Sans', system-ui, sans-serif !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+  .popup-name {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  .popup-trait {
+    color: #C07A3E;
+    font-weight: 500;
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+  .popup-price {
+    color: #666;
+    font-size: 12px;
+  }
+  .popup-link {
+    display: inline-block;
+    margin-top: 6px;
+    color: #C07A3E;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  @media (max-width: 600px) {
+    .header h1 { font-size: 1.6rem; }
+    #map { height: 320px; }
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+    .cards-section { padding: 16px; }
+    .filter-bar { padding: 12px 16px; }
+  }
+</style>
+
+<div class="header">
+  <h1>Abu Dhabi Shisha Guide</h1>
+  <p>6 spots reviewed &middot; prices, vibes &amp; suitability</p>
+</div>
+
+<div id="map"></div>
+
+<div class="filter-bar" role="toolbar" aria-label="Filter venues">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="budget">Budget</button>
+  <button class="filter-btn" data-filter="women-friendly">Women-friendly</button>
+  <button class="filter-btn" data-filter="views">Views</button>
+  <button class="filter-btn" data-filter="work-friendly">Work-friendly</button>
+  <button class="filter-btn" data-filter="premium">Premium</button>
+</div>
+
+<div class="cards-section">
+  <div class="cards-grid" id="cards-grid"></div>
+</div>
+
+<div class="legend">
+  Marker positions are approximate. Prices reflect shisha cost per session (2026 reports). Verify hours and availability before visiting.
+</div>
+
+<script>
+const venues = [
+  {
+    id: 'jannah',
+    name: 'Jannah',
+    lat: 24.4905,
+    lng: 54.3690,
+    price: '~AED 25',
+    priceNote: 'Cheapest option in Abu Dhabi',
+    trait: 'Cheapest',
+    tags: ['budget', 'local-favourite'],
+    filters: ['budget'],
+    rating: 3.8,
+    reviews: 'Bare-bones but functional. Popular with regulars who come for the price, not the decor. Shisha quality is decent for the cost — expect basic flavours and plastic chairs. No frills, no pretence.',
+    reviewSource: 'Local community reviews, 2026',
+    area: 'Tourist Club Area',
+    vibe: 'Casual / Local',
+    hours: 'Evenings–late',
+    emoji: '\u{1F4B0}'
+  },
+  {
+    id: 'cauldron',
+    name: 'Cauldron',
+    lat: 24.4870,
+    lng: 54.3560,
+    price: 'AED 60',
+    priceNote: 'Affordable with good atmosphere',
+    trait: 'Cheap + women-friendly',
+    tags: ['women-friendly', 'budget'],
+    filters: ['budget', 'women-friendly'],
+    rating: 4.1,
+    reviews: 'Themed café with a welcoming atmosphere that draws a mixed crowd. Women and couples feel comfortable here — multiple 2026 reviews confirm it. The shisha is mid-range quality at a price that undercuts most competitors. Interiors lean quirky.',
+    reviewSource: 'Google reviews + local forums, 2026',
+    area: 'Al Zahiyah',
+    vibe: 'Themed café / Mixed',
+    hours: '12 PM–2 AM',
+    emoji: '\u{2615}'
+  },
+  {
+    id: 'carolina',
+    name: 'Carolina',
+    lat: 24.4720,
+    lng: 54.3740,
+    price: 'AED 30–50',
+    priceNote: 'Student-budget pricing',
+    trait: 'Student / local café',
+    tags: ['budget', 'students'],
+    filters: ['budget'],
+    rating: 3.6,
+    reviews: 'The café Abu Dhabi university students name when asked where they go. Low-key, unpretentious, and cheap. Shisha is serviceable rather than exceptional. Come for the price and the company, not the ambiance.',
+    reviewSource: 'Abu Dhabi locals, Reddit threads, 2026',
+    area: 'Near university district',
+    vibe: 'Student hangout',
+    hours: 'Afternoons–late',
+    emoji: '\u{1F393}'
+  },
+  {
+    id: 'otantik',
+    name: 'Otantik',
+    lat: 24.4830,
+    lng: 54.3480,
+    price: 'AED 55–80',
+    priceNote: 'Mid-range, good value for duration',
+    trait: 'Work-friendly + mixed crowd',
+    tags: ['work-friendly', 'mixed-crowd'],
+    filters: ['work-friendly'],
+    rating: 4.3,
+    reviews: 'Turkish café chain with solid shisha and a relaxed atmosphere that encourages lingering. Good Wi-Fi, decent food menu, and a mixed social crowd that spans solo workers, friend groups, and couples. The kind of place you settle into for hours.',
+    reviewSource: 'Google reviews + expat guides, 2026',
+    area: 'Al Khalidiyah',
+    vibe: 'Relaxed / Work-friendly',
+    hours: '10 AM–2 AM',
+    emoji: '\u{1F4BB}'
+  },
+  {
+    id: 'la-fontana',
+    name: 'La Fontana',
+    lat: 24.4620,
+    lng: 54.3280,
+    price: 'AED 65–90',
+    priceNote: 'Moderate — you pay partly for the view',
+    trait: 'Views + mixed environment',
+    tags: ['views', 'mixed-crowd', 'women-friendly'],
+    filters: ['views', 'women-friendly'],
+    rating: 4.2,
+    reviews: 'Waterfront-adjacent spot where you get a genuine view and a comfortable mixed environment. Women, couples, and families are a normal part of the crowd. Shisha quality is solid, the setting does real work. Expect moderate prices justified by location.',
+    reviewSource: 'TripAdvisor + Google, 2026',
+    area: 'Corniche / Breakwater',
+    vibe: 'Scenic / Relaxed',
+    hours: '11 AM–1 AM',
+    emoji: '\u{1F30A}'
+  },
+  {
+    id: 'hookahplace',
+    name: 'HookahPlace',
+    lat: 24.4980,
+    lng: 54.3920,
+    price: 'AED 100–150+',
+    priceNote: 'Premium pricing',
+    trait: 'Best shisha + women/couples',
+    tags: ['premium', 'women-friendly', 'excellent-shisha'],
+    filters: ['premium', 'women-friendly'],
+    rating: 4.6,
+    reviews: 'The strongest 2026 evidence for both excellent shisha and a genuinely women/couples-friendly environment. International chain that takes preparation seriously — expect premium tobacco, attentive coal service, and a stylish interior. You pay for it, but the quality gap over cheaper options is real.',
+    reviewSource: 'Google reviews + shisha community, 2026',
+    area: 'Al Reem Island',
+    vibe: 'Premium lounge',
+    hours: '12 PM–3 AM',
+    emoji: '\u{2728}'
+  }
+];
+
+// Star SVG helper
+function starSVG(filled) {
+  const c = filled ? 'star-filled' : 'star-empty';
+  return `<svg class="star ${c}" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.3l2.39 5.68 6.11.58-4.65 4.06 1.42 6.08L10 14.47 4.73 17.7l1.42-6.08L1.5 7.56l6.11-.58z"/></svg>`;
+}
+
+function renderStars(rating) {
+  const full = Math.floor(rating);
+  const half = rating - full >= 0.5 ? 1 : 0;
+  let html = '';
+  for (let i = 0; i < full; i++) html += starSVG(true);
+  if (half) html += starSVG(true);
+  for (let i = full + half; i < 5; i++) html += starSVG(false);
+  return html;
+}
+
+function renderCard(v) {
+  return `
+    <div class="venue-card" data-id="${v.id}" data-filters="${v.filters.join(',')}" id="card-${v.id}">
+      <div class="card-image-placeholder">${v.emoji}</div>
+      <div class="card-body">
+        <div class="card-top-row">
+          <h3 class="card-name">${v.name}</h3>
+          <span class="card-price">${v.price}</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag highlight">${v.trait}</span>
+          ${v.tags.map(t => `<span class="tag">${t.replace(/-/g, ' ')}</span>`).join('')}
+        </div>
+        <div class="card-rating">
+          <span class="stars">${renderStars(v.rating)}</span>
+          <span class="rating-text">${v.rating.toFixed(1)}</span>
+        </div>
+        <div class="card-review">
+          ${v.reviews}
+          <br><em>${v.reviewSource}</em>
+        </div>
+        <div class="card-details">
+          <span class="detail-item">
+            <svg class="detail-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6c0 4.5 6 10 6 10s6-5.5 6-10a6 6 0 00-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z"/></svg>
+            ${v.area}
+          </span>
+          <span class="detail-item">
+            <svg class="detail-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 8.59l3.7 2.14-.99 1.72L9.5 11.5V5h2v5.59z"/></svg>
+            ${v.hours}
+          </span>
+          <span class="detail-item">
+            <svg class="detail-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M13 6V4a3 3 0 00-6 0v2H5v10h10V6h-2zm-4-2a1 1 0 012 0v2H9V4z"/></svg>
+            ${v.vibe}
+          </span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Render cards
+const grid = document.getElementById('cards-grid');
+grid.innerHTML = venues.map(renderCard).join('');
+
+// Init map
+const map = L.map('map', { scrollWheelZoom: true }).setView([24.4800, 54.3600], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  maxZoom: 18
+}).addTo(map);
+
+// Custom marker icon
+function makeIcon(color) {
+  return L.divIcon({
+    className: '',
+    html: `<svg width="28" height="40" viewBox="0 0 28 40"><path d="M14 0C6.27 0 0 6.27 0 14c0 10.5 14 26 14 26s14-15.5 14-26C28 6.27 21.73 0 14 0z" fill="${color}"/><circle cx="14" cy="13" r="6" fill="white" opacity="0.9"/></svg>`,
+    iconSize: [28, 40],
+    iconAnchor: [14, 40],
+    popupAnchor: [0, -36]
+  });
+}
+
+const defaultIcon = makeIcon('#6B7E63');
+const activeIcon = makeIcon('#C07A3E');
+const markers = {};
+let activeMarker = null;
+
+venues.forEach(v => {
+  const marker = L.marker([v.lat, v.lng], { icon: defaultIcon }).addTo(map);
+  marker.bindPopup(`
+    <div class="popup-name">${v.name}</div>
+    <div class="popup-trait">${v.trait}</div>
+    <div class="popup-price">${v.price} &middot; ${v.area}</div>
+    <span class="popup-link" onclick="scrollToCard('${v.id}')">View details</span>
+  `);
+  marker.on('click', () => highlightVenue(v.id));
+  markers[v.id] = marker;
+});
+
+function highlightVenue(id) {
+  document.querySelectorAll('.venue-card').forEach(c => c.classList.remove('highlighted'));
+  if (activeMarker) markers[activeMarker].setIcon(defaultIcon);
+  const card = document.getElementById('card-' + id);
+  if (card) {
+    card.classList.add('highlighted');
+  }
+  markers[id].setIcon(activeIcon);
+  activeMarker = id;
+}
+
+function scrollToCard(id) {
+  highlightVenue(id);
+  const card = document.getElementById('card-' + id);
+  if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Card click → fly to marker
+document.querySelectorAll('.venue-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const id = card.dataset.id;
+    const v = venues.find(x => x.id === id);
+    if (v) {
+      map.flyTo([v.lat, v.lng], 15, { duration: 0.8 });
+      markers[id].openPopup();
+      highlightVenue(id);
+    }
+  });
+});
+
+// Filters
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.venue-card').forEach(card => {
+      if (filter === 'all') {
+        card.hidden = false;
+      } else {
+        const filters = card.dataset.filters.split(',');
+        card.hidden = !filters.includes(filter);
+      }
+    });
+    // Show/hide markers
+    venues.forEach(v => {
+      if (filter === 'all' || v.filters.includes(filter)) {
+        markers[v.id].addTo(map);
+      } else {
+        map.removeLayer(markers[v.id]);
+      }
+    });
+  });
+});
+</script>
