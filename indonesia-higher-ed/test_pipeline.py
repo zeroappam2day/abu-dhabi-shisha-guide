@@ -103,9 +103,23 @@ def test_end_to_end(monkeypatch):
     spot = read_rows("s4_spotcheck.csv")[0]
     assert spot["agree"] == "yes"
 
+    monkeypatch.setattr(C, "SHORTLIST_NUMERIC_FILE", C.DATA / "num.csv")
+    monkeypatch.setattr(C, "SHORTLIST_SAFETY_FILE", C.DATA / "saf.csv")
+    write_rows("num.csv", [{"city": "Kabupaten Badung", "province": "Bali", "poverty_pct": "3.5", "poverty_period": "2025",
+                            "poverty_src": "https://x/p", "unemployment_pct": "", "unemployment_period": "",
+                            "unemployment_src": "UNVERIFIED", "umk_2026_idr": "3500000", "umk_src": "https://x/u",
+                            "avg_wage_idr": "not published at regency level", "avg_wage_src": "UNVERIFIED",
+                            "notes": ""}],
+               ["city", "province", "poverty_pct", "poverty_period", "poverty_src", "unemployment_pct",
+                "unemployment_period", "unemployment_src", "umk_2026_idr", "umk_src", "avg_wage_idr", "avg_wage_src",
+                "notes"])
+    write_rows("saf.csv", [], ["city", "province", "safety", "n_sources", "evidence"])
     s5_deliver.main()
     wb = load_workbook(C.WORKBOOK)
-    assert wb.sheetnames == ["Institutions", "Summary"]
+    assert wb.sheetnames == ["Institutions", "Summary", C.SHORTLIST_SHEET]
+    short = list(wb[C.SHORTLIST_SHEET].iter_rows(min_row=2, values_only=True))[0]
+    assert short[4] == C.NOT_RESEARCHED and short[6] == 3500000 and short[9] == C.UNVERIFIED and short[11] == 3.5
+    assert short[8] == C.NOT_AT_REGENCY
     assert wb["Institutions"].max_row - 1 == len(rows)
     assert list(wb["Summary"].iter_rows(min_row=2, values_only=True)) == [("Kabupaten Badung", "Bali", len(rows), "yes", len(rows) - 2)]
 
