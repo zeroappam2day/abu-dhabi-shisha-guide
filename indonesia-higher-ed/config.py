@@ -122,6 +122,11 @@ SHORTLIST_SPOT_FILE = ROOT / "shortlist_spotcheck.csv"
 SHORTLIST_SWIM_FILE = ROOT / "shortlist_swim.csv"         # swimmable sand (not pebble/rock/mud) sea beach per city + URL
 SWIM_LABELS = {"yes": "Yes", "no": "No"}                   # anything else, or no URL, -> UNVERIFIED
 SWIM_VALUES = {"Yes", "No", UNVERIFIED, NOT_RESEARCHED}
+PRIORITY_ZONES = {                     # user's priority area (province -> zone name); every other province -> PRIORITY_OUTSIDE
+    "Lampung": "Lampung", "Banten": "Java", "DKI Jakarta": "Java", "Jawa Barat": "Java", "Jawa Tengah": "Java",
+    "DI Yogyakarta": "Java", "Jawa Timur": "Java", "Bali": "Bali",
+}
+PRIORITY_OUTSIDE = "Outside"
 
 # ---- Stage 5: deliver ----------------------------------------------------------
 WORKBOOK = OUTPUT / "indonesia_higher_ed.xlsx"

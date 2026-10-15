@@ -6,7 +6,7 @@ import config as C
 COLS = ["City/Regency", "Province", "Institution count", "Offering S1/D3/D4", "Safety (walking around)",
         "Safety evidence", "UMK 2026 (IDR/month)", "UMK basis", "Average net wage (IDR/month, all ages)",
         "Unemployment rate % (all ages)", "Unemployment period", "Poverty rate %", "Poverty period", "Sources",
-        "Notes", "Swimmable sand beach", "Swim beach evidence"]
+        "Notes", "Swimmable sand beach", "Swim beach evidence", "Priority zone"]
 
 
 def _read(path):
@@ -58,5 +58,6 @@ def build(counts, under, beach):
             float(tpt) if tpt else C.UNVERIFIED, m.get("unemployment_period") or C.UNVERIFIED,
             float(p0) if p0 else C.UNVERIFIED, m.get("poverty_period") or C.UNVERIFIED,
             srcs or C.UNVERIFIED, notes or "-", swim_val, swim_ev or C.UNVERIFIED,
+            C.PRIORITY_ZONES.get(prov, C.PRIORITY_OUTSIDE),
         ])
     return rows, problems
