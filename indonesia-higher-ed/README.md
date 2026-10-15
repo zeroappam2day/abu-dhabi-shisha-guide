@@ -44,7 +44,7 @@ It covers every institution with at least one S1, D3 or D4 program. Every stage 
 ## Outputs
 - `output/indonesia_higher_ed.xlsx` is the deliverable.
 - Evidence in `data/`:
-  - Gate reports: `gate_s1.txt` to `gate_s5.txt`.
+  - Gate reports: `gate_s1.txt` to `gate_s6.txt`.
   - Dropped institutions with their reason: `s2_all_classified.csv`.
   - Beach evidence per city, including its basis (OSM or web): `s4_cities.csv`.
   - Spot-check results: `s4_spotcheck.csv`.
