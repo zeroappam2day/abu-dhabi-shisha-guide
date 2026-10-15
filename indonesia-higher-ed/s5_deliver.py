@@ -6,7 +6,7 @@ from openpyxl import Workbook, load_workbook
 import config as C
 from common import gate, read_rows
 
-INST_COLS = ["Name", "City", "Province", "Beach", "Duplicate"]
+INST_COLS = ["Name", "Address", "City", "Province", "Beach", "Duplicate"]
 SUM_COLS = ["City", "Province", "Institution count", "Beach"]
 
 
@@ -20,7 +20,8 @@ def main():
     ws.title = "Institutions"
     ws.append(INST_COLS)
     for r in rows:
-        ws.append([r["name"], r["city"], r["province"], beach.get((r["city"], r["province"]), ""), r["duplicate"]])
+        ws.append([r["name"], r["address"], r["city"], r["province"], beach.get((r["city"], r["province"]), ""),
+                   r["duplicate"]])
     ws2 = wb.create_sheet("Summary")
     ws2.append(SUM_COLS)
     for (city, prov), n in sorted(counts.items()):

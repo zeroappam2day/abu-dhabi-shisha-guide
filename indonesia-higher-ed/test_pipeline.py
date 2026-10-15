@@ -46,8 +46,8 @@ def test_classify():
 
 
 def write_sources(n):
-    xlsx("src_perguruan_tinggi.xlsx", ["npsn", "nama_pt", "Kabupaten_pt", "provinsi_pt"],
-         [[f"{i:06d}", f"Univ {i % 3}", "Kab. Badung", "Prov. Bali"] for i in range(n)])
+    xlsx("src_perguruan_tinggi.xlsx", ["npsn", "nama_pt", "jln", "Kabupaten_pt", "provinsi_pt"],
+         [[f"{i:06d}", f"Univ {i % 3}", "-" if i % 2 else "Jl. Raya 1", "Kab. Badung", "Prov. Bali"] for i in range(n)])
     levels = {0: "S2", 1: "D1"}
     xlsx("src_program_studi.xlsx", ["npsn", "nm_jenj_didik"], [[f"{i:06d}", levels.get(i, "S1")] for i in range(n)])
 
@@ -68,6 +68,7 @@ def test_end_to_end(monkeypatch):
     rows = read_rows("s3_institutions.csv")
     assert {r["city"] for r in rows} == {"Kabupaten Badung"} and rows[0]["province"] == "Bali"
     assert all(r["duplicate"] == "yes" for r in rows)                    # names repeat in same city
+    assert {r["address"] for r in rows} == {"Jl. Raya 1", C.ADDRESS_MISSING}
 
     square = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)]).difference(Polygon([(.4, .4), (.6, .4), (.6, .6), (.4, .6)]))
     feats = [
@@ -116,8 +117,8 @@ def test_s4_gate_fails_on_unmatched_city():
 
 
 def test_s5_gate_fails_on_missing_beach():
-    write_rows("s3_institutions.csv", [{"name": "A", "city": "Kota Y", "province": "Bali", "duplicate": "no"}],
-               ["name", "city", "province", "duplicate"])
+    write_rows("s3_institutions.csv", [{"name": "A", "address": "x", "city": "Kota Y", "province": "Bali",
+                                        "duplicate": "no"}], ["name", "address", "city", "province", "duplicate"])
     write_rows("s4_cities.csv", [], ["city", "province", "beach"])
     with pytest.raises(SystemExit, match="Stage 5 gate FAILED"):
         s5_deliver.main()

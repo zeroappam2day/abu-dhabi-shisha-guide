@@ -1,8 +1,9 @@
 # Indonesia higher-education workbook
 
-Builds `output/indonesia_higher_ed.xlsx` with two sheets:
-- **Institutions:** name, city, province, beach, duplicate.
+Builds `output/indonesia_higher_ed.xlsx` with three sheets:
+- **Institutions:** name, address, city, province, beach, duplicate.
 - **Summary:** city, province, institution count, beach.
+- **Pivot:** a real, refreshable Excel pivot table. Rows are province, then city; columns are beach; values are the count of institutions.
 
 It covers every institution with at least one S1, D3 or D4 program. Every stage ends with a gate. If a gate fails, the stage writes `data/gate_sN.txt` and exits, and the workbook is not produced.
 
@@ -14,7 +15,8 @@ It covers every institution with at least one S1, D3 or D4 program. Every stage 
 | 3 Clean | City and province prefixes are normalized. `CITY_ALIASES` maps typos and renamed regencies to current official names. Exact duplicates (same name, city and province) are flagged and never removed. |
 | 4 Beach | The OpenStreetMap Indonesia extract supplies kabupaten/kota boundaries. A city is "yes" if its boundary contains a named `natural=beach`, or a named "Pantai …" tourist attraction, viewpoint, picnic site or beach resort, within 300 m of the coastline and not mud or rock. OSM has gaps on the coast, so coastal cities with no OSM beach are decided by web-verified verdicts in `beach_web.csv`, each with a URL. |
 | 4 Spot-check | 20 seeded-random cities are compared with independent web verdicts in `spotcheck_web.csv`. At least 19 must agree. |
-| 5 Deliver | Two sheets, read back and checked. The file is renamed to its final name only after the gate passes. |
+| 5 Deliver | Institutions and Summary sheets, read back and checked. The file is renamed to its final name only after the gate passes. Missing addresses read "Not published in source". |
+| 6 Pivot | Headless LibreOffice adds the pivot table. The gate checks that the pivot object exists, that its grand total equals the institution count, and that the Institutions sheet is unchanged. |
 
 ## Recorded decisions
 - **Stage 1 tolerance:** 3% instead of 2% (user decision). The source has 4,303 rows, which is −2.56% against 4,416. The PDDikti API was unreachable because Cloudflare blocks it.
@@ -34,7 +36,9 @@ It covers every institution with at least one S1, D3 or D4 program. Every stage 
    python s3_clean.py
    python s4_beach.py
    python s5_deliver.py
+   python s6_pivot.py
    ```
+   Stage 6 needs LibreOffice (`soffice`) to build the pivot table.
    Stage 4 downloads the ~2 GB OSM extract on its first run and needs about 6 GB of RAM.
 
 ## Outputs

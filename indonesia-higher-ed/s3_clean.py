@@ -14,6 +14,7 @@ def main():
     for r in rows:
         r["city"], r["province"] = clean_city(r["city_raw"]), clean_province(r["province_raw"])
         r["province"] = C.CITY_PROVINCE_FIXES.get(r["city"], r["province"])
+        r["address"] = r["address"] if r["address"].strip("- ") else C.ADDRESS_MISSING
     counts = Counter(dup_key(r) for r in rows)
     for r in rows:
         r["duplicate"] = "yes" if counts[dup_key(r)] > 1 else "no"

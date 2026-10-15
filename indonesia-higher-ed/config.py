@@ -7,7 +7,8 @@ OUTPUT = ROOT / "output"
 
 # ---- Stage 1: source (Kemdiktisaintek open-data portal, 2025) ----------------
 PT_URL = "https://data.kemdiktisaintek.go.id/download/datasets/6"      # Perguruan Tinggi.xlsx
-PT_COLS = {"npsn": "npsn", "name": "nama_pt", "city_raw": "Kabupaten_pt", "province_raw": "provinsi_pt"}
+PT_COLS = {"npsn": "npsn", "name": "nama_pt", "address": "jln", "city_raw": "Kabupaten_pt",
+           "province_raw": "provinsi_pt"}
 OFFICIAL_TOTAL = 4416                 # 2025 official; PDDikti homepage now shows 4621
 OFFICIAL_TOTAL_LABEL = "4,416 (2025 official total)"
 COUNT_TOLERANCE = 0.03                # widened from 2% by user decision (source has 4,303 = -2.56%)
@@ -69,6 +70,8 @@ CITY_ALIASES = {                       # cleaned source name -> current official
     "Kota Padang Sidempuan": "Kota Padangsidimpuan",
 }
 
+ADDRESS_MISSING = "Not published in source"   # label for blank or "-" street addresses (no empty cells)
+
 CITY_PROVINCE_FIXES = {                # city listed under two provinces in the source -> its current province
     "Kota Tarakan": "Kalimantan Utara",   # Kalimantan Utara split from Kalimantan Timur in 2012
 }
@@ -98,3 +101,7 @@ SPOTCHECK_FILE = ROOT / "spotcheck_web.csv"   # second source: city, web_beach (
 
 # ---- Stage 5: deliver ----------------------------------------------------------
 WORKBOOK = OUTPUT / "indonesia_higher_ed.xlsx"
+PIVOT_SHEET = "Pivot"                  # real Excel pivot: rows Province > City, columns Beach, values count of Name
+PIVOT_ROWS = ["Province", "City"]
+PIVOT_COLUMNS = ["Beach"]
+PIVOT_COUNT = "Name"
