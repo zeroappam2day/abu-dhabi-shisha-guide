@@ -1,0 +1,19 @@
+Kabupaten Bangka | Kepulauan Bangka Belitung | unemployment_pct
+Kabupaten Buru | Maluku | unemployment_pct
+Kabupaten Demak | Jawa Tengah | unemployment_pct
+Kabupaten Garut | Jawa Barat | unemployment_pct
+Kabupaten Jayapura | Papua | poverty_pct
+Kabupaten Jeneponto | Sulawesi Selatan | poverty_pct
+Kabupaten Kulon Progo | DI Yogyakarta | unemployment_pct
+Kabupaten Luwu | Sulawesi Selatan | poverty_pct,unemployment_pct
+Kabupaten Merauke | Papua | poverty_pct
+Kabupaten Nagan Raya | Aceh | unemployment_pct
+Kabupaten Purworejo | Jawa Tengah | unemployment_pct
+Kabupaten Sorong | Papua Barat | poverty_pct
+Kabupaten Subang | Jawa Barat | unemployment_pct
+Kabupaten Sukabumi | Jawa Barat | unemployment_pct
+Kabupaten Tapanuli Selatan | Sumatera Utara | unemployment_pct
+Kabupaten Tuban | Jawa Timur | unemployment_pct
+Kota Gunung Sitoli | Sumatera Utara | unemployment_pct
+Kota Jayapura | Papua | poverty_pct
+Kota Pekalongan | Jawa Tengah | unemployment_pct
