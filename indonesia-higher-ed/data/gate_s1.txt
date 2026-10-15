@@ -1,0 +1,5 @@
+Stage 1 gate
+PASS  rows within 3% of 4,416 (2025 official total)  [4303 rows from https://data.kemdiktisaintek.go.id/download/datasets/6, diff -2.56%; vs 4,621 homepage: -6.88%]
+PASS  no blank city (placeholders like 'Lainnya' count as blank)  [0 blank: []; 36 cities from city_research.csv]
+PASS  no blank name or province  []
+PASS  NPSN codes unique (join key for Stage 2)  [repeated: []]

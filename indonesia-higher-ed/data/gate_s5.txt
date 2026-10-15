@@ -1,0 +1,4 @@
+Stage 5 gate
+PASS  Institutions rows equal Stage 3  [4261 vs 4261]
+PASS  Summary counts sum to the same total  [4261 across 444 cities]
+PASS  no empty cells  [0 rows with empty cells]

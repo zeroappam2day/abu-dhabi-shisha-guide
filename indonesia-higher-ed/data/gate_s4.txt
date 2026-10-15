@@ -1,0 +1,6 @@
+Stage 4 gate
+PASS  100% of cities classified  [444 cities, 260 yes, 1 unknown (user-approved 'Jakarta (City Unknown)'); 918 OSM city boundaries, 855 named beaches, 821 confirmed sea, 22763 coastline ways, 8 broken geometries skipped]
+PASS  every yes lists a named beach and a source  [missing: []]
+PASS  every coastal city without an OSM beach has a web verdict in beach_web.csv  [0 unverified: []; 148 decided by web]
+PASS  spot-check sample all verified in spotcheck_web.csv  [not yet verified: []]
+PASS  spot-check vs web: >= 19/20 agree  [20 agree; disagreements: []]

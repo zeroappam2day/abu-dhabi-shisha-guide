@@ -1,0 +1,6 @@
+Stage 3 gate
+PASS  row count equals Stage 2  [4261 rows]
+PASS  zero blank cities  []
+PASS  zero blank provinces  []
+PASS  each city has one province  [split: {}]
+PASS  duplicates flagged, none removed  [0 rows flagged as exact duplicates]
