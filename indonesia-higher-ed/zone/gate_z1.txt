@@ -1,0 +1,6 @@
+PASS  rows  [70 out, 70 agent rows]
+PASS  agent keys match  [extra=set()]
+PASS  values valid  []
+PASS  every Yes/No has opened URL  [57 decided; bad=[]]
+PASS  counts  [v2 {'Yes': 54, 'No': 3, 'Unverified': 13}; changed 10]
+PASS  baseline intact  [148 files match]

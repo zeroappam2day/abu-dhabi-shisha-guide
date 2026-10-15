@@ -25,6 +25,9 @@ for b in base:
     if k in got:
         r = got[k]
         val, ev, src = r["safety_v2"], r["evidence"], "researched (zone)"
+        if k in Z.SAFETY_OVERRIDES:
+            val, why = Z.SAFETY_OVERRIDES[k]
+            ev = f"UNVERIFIED (reviewer: {why}): {ev}"
     else:
         val, ev, src = old, b["Safety evidence"], "baseline (carried)"
     out.append({"city": k[0], "province": k[1], "safety_v2": val, "evidence": ev, "source": src,

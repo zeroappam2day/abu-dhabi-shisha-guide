@@ -32,3 +32,12 @@ SEARCH_RESERVE = 10
 
 UNVERIFIED = "UNVERIFIED"
 CHECKED_VALUES = {"opened", "summary", "none"}
+
+# Reviewer overrides applied at merge (agent output files stay untouched). key -> (new value, reason)
+SWIM_OVERRIDES = {
+    ("Kota Serang", "Banten"): ("Unverified", "only one beach (Pantai Gope) shown non-sand; No needs all shores non-sand or a ban"),
+}
+SAFETY_OVERRIDES = {
+    ("Kabupaten Situbondo", "Jawa Timur"): ("No rating: <2 dated sources found",
+                                            "both sources report the same 2026-06-30 police press conference (not independent)"),
+}

@@ -9,7 +9,10 @@ got = merge_outs("swim_out_*.csv")
 out = []
 for b in base:
     k = (b["City/Regency"], b["Province"])
-    r = got.get(k, {"swim_v2": "Unverified", "beach_name": "-", "evidence": "UNVERIFIED: no agent row", "checked": "none"})
+    r = dict(got.get(k, {"swim_v2": "Unverified", "beach_name": "-", "evidence": "UNVERIFIED: no agent row", "checked": "none"}))
+    if k in Z.SWIM_OVERRIDES:
+        r["swim_v2"], why = Z.SWIM_OVERRIDES[k]
+        r["evidence"] = f"UNVERIFIED (reviewer: {why}): {r['evidence']}"
     out.append({"city": k[0], "province": k[1], "swim_v2": r["swim_v2"], "beach_name": r["beach_name"],
                 "evidence": r["evidence"], "checked": r["checked"],
                 "changed": "yes" if r["swim_v2"] != b["Swimmable sand beach"] else "no",
