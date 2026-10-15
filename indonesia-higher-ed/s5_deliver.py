@@ -6,26 +6,29 @@ from openpyxl import Workbook, load_workbook
 import config as C
 from common import gate, read_rows
 
-INST_COLS = ["Name", "Address", "City", "Province", "Beach", "Duplicate"]
-SUM_COLS = ["City", "Province", "Institution count", "Beach"]
+INST_COLS = ["NPSN", "Name", "Type", "Ownership", "Address", "City", "Province", "Levels offered",
+             "Offers S1/D3/D4", "Typical student age", "Beach", "Duplicate", "City source"]
+SUM_COLS = ["City", "Province", "Institution count", "Beach", "Offering S1/D3/D4"]
 
 
 def main():
     rows = read_rows("s3_institutions.csv")
     beach = {(c["city"], c["province"]): c["beach"] for c in read_rows("s4_cities.csv")}
     counts = Counter((r["city"], r["province"]) for r in rows)
+    under = Counter((r["city"], r["province"]) for r in rows if r["offers_undergrad"] == "yes")
 
     wb = Workbook()
     ws = wb.active
     ws.title = "Institutions"
     ws.append(INST_COLS)
     for r in rows:
-        ws.append([r["name"], r["address"], r["city"], r["province"], beach.get((r["city"], r["province"]), ""),
-                   r["duplicate"]])
+        ws.append([r["npsn"], r["name"], r["type"], r["ownership"], r["address"], r["city"], r["province"],
+                   r["levels"], r["offers_undergrad"], r["typical_age"], beach.get((r["city"], r["province"]), ""),
+                   r["duplicate"], r["city_basis"]])
     ws2 = wb.create_sheet("Summary")
     ws2.append(SUM_COLS)
     for (city, prov), n in sorted(counts.items()):
-        ws2.append([city, prov, n, beach.get((city, prov), "")])
+        ws2.append([city, prov, n, beach.get((city, prov), ""), under[(city, prov)]])
     for sheet in (ws, ws2):
         sheet.freeze_panes = "A2"
         sheet.auto_filter.ref = sheet.dimensions

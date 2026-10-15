@@ -52,6 +52,8 @@ def build_pivot(src, dst):
         orient = "com.sun.star.sheet.DataPilotFieldOrientation"
         for name in C.PIVOT_ROWS:
             fields.getByIndex(header.index(name)).Orientation = uno.Enum(orient, "ROW")
+        for name in C.PIVOT_FILTERS:
+            fields.getByIndex(header.index(name)).Orientation = uno.Enum(orient, "PAGE")
         for name in C.PIVOT_COLUMNS:
             fields.getByIndex(header.index(name)).Orientation = uno.Enum(orient, "COLUMN")
         count = fields.getByIndex(header.index(C.PIVOT_COUNT))

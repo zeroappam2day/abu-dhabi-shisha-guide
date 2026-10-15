@@ -1,4 +1,4 @@
 Stage 6 gate
 PASS  pivot table object present (refreshable in Excel)  []
-PASS  Institutions sheet unchanged by the pivot step  [4261 rows]
-PASS  pivot grand total equals institution count  [grand total 4261]
+PASS  Institutions sheet unchanged by the pivot step  [4303 rows]
+PASS  pivot grand total equals institution count  [grand total 4303]

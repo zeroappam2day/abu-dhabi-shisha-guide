@@ -39,6 +39,11 @@ def test_normalizers():
     assert city_type("Kab. Bandung") == "kab" and city_type("Kota Bandung") == "kota" and city_type("Bandung") == ""
 
 
+def test_typical_age():
+    t = s2_age_filter.typical_age
+    assert t({"S1", "S2"}) == "18-22; 23+ (postgraduate)" and t({"D3"}) == "18-21" and t({"S2", "S3"}) == "23+"
+
+
 def test_classify():
     c = s2_age_filter.classify
     assert c({"S1", "S2"}) == "keep" and c({"D3"}) == "keep" and c({"D4"}) == "keep"
@@ -46,8 +51,9 @@ def test_classify():
 
 
 def write_sources(n):
-    xlsx("src_perguruan_tinggi.xlsx", ["npsn", "nama_pt", "jln", "Kabupaten_pt", "provinsi_pt"],
-         [[f"{i:06d}", f"Univ {i % 3}", "-" if i % 2 else "Jl. Raya 1", "Kab. Badung", "Prov. Bali"] for i in range(n)])
+    xlsx("src_perguruan_tinggi.xlsx", ["npsn", "nama_pt", "nm_bp", "kelompok", "jln", "Kabupaten_pt", "provinsi_pt"],
+         [[f"{i:06d}", f"Univ {i % 3}", "Universitas", "Swasta", "-" if i % 2 else "Jl. Raya 1", "Kab. Badung",
+           "Prov. Bali"] for i in range(n)])
     levels = {0: "S2", 1: "D1"}
     xlsx("src_program_studi.xlsx", ["npsn", "nm_jenj_didik"], [[f"{i:06d}", levels.get(i, "S1")] for i in range(n)])
 
@@ -63,7 +69,10 @@ def test_end_to_end(monkeypatch):
     write_sources(n)
     s1_source.main()
     s2_age_filter.main()
-    assert len(read_rows("s2_institutions.csv")) == n - 2                # S2-only and D1-only dropped
+    kept = {r["npsn"]: r for r in read_rows("s2_institutions.csv")}
+    assert len(kept) == n                                                # AGE_FILTER off: nothing dropped
+    assert kept["000000"]["offers_undergrad"] == "no" and kept["000000"]["typical_age"] == "23+"
+    assert kept["000001"]["typical_age"] == "18-19" and kept["000002"]["typical_age"] == "18-22"
     s3_clean.main()
     rows = read_rows("s3_institutions.csv")
     assert {r["city"] for r in rows} == {"Kabupaten Badung"} and rows[0]["province"] == "Bali"
@@ -98,7 +107,7 @@ def test_end_to_end(monkeypatch):
     wb = load_workbook(C.WORKBOOK)
     assert wb.sheetnames == ["Institutions", "Summary"]
     assert wb["Institutions"].max_row - 1 == len(rows)
-    assert list(wb["Summary"].iter_rows(min_row=2, values_only=True)) == [("Kabupaten Badung", "Bali", len(rows), "yes")]
+    assert list(wb["Summary"].iter_rows(min_row=2, values_only=True)) == [("Kabupaten Badung", "Bali", len(rows), "yes", len(rows) - 2)]
 
 
 def test_is_beach():
@@ -117,8 +126,10 @@ def test_s4_gate_fails_on_unmatched_city():
 
 
 def test_s5_gate_fails_on_missing_beach():
-    write_rows("s3_institutions.csv", [{"name": "A", "address": "x", "city": "Kota Y", "province": "Bali",
-                                        "duplicate": "no"}], ["name", "address", "city", "province", "duplicate"])
+    row = {"npsn": "1", "name": "A", "type": "Universitas", "ownership": "Private", "address": "x", "city": "Kota Y",
+           "province": "Bali", "levels": "S1", "offers_undergrad": "yes", "typical_age": "18-22", "duplicate": "no",
+           "city_basis": "official"}
+    write_rows("s3_institutions.csv", [row], list(row))
     write_rows("s4_cities.csv", [], ["city", "province", "beach"])
     with pytest.raises(SystemExit, match="Stage 5 gate FAILED"):
         s5_deliver.main()

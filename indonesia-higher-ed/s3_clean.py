@@ -14,6 +14,8 @@ def main():
     for r in rows:
         r["city"], r["province"] = clean_city(r["city_raw"]), clean_province(r["province_raw"])
         r["province"] = C.CITY_PROVINCE_FIXES.get(r["city"], r["province"])
+        r["ownership"] = C.OWNERSHIP_LABELS.get(r["ownership_raw"], r["ownership_raw"])
+        r["city_basis"] = "official" if r["city_source"] == "official" else r["city_source"].split(":")[0]
         r["address"] = r["address"] if r["address"].strip("- ") else C.ADDRESS_MISSING
     counts = Counter(dup_key(r) for r in rows)
     for r in rows:
@@ -30,6 +32,8 @@ def main():
         ("zero blank cities", all(r["city"] for r in rows), ""),
         ("zero blank provinces", all(r["province"] for r in rows), ""),
         ("each city has one province", not split, f"split: {split}"),
+        ("every ownership value mapped", all(r["ownership"] in C.OWNERSHIP_LABELS.values() for r in rows),
+         f"unmapped: {sorted({r['ownership'] for r in rows} - set(C.OWNERSHIP_LABELS.values()))}"),
         ("duplicates flagged, none removed", True, f"{dups} rows flagged as exact duplicates"),
     ])
 

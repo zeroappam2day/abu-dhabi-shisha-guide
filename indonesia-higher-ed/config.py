@@ -7,8 +7,8 @@ OUTPUT = ROOT / "output"
 
 # ---- Stage 1: source (Kemdiktisaintek open-data portal, 2025) ----------------
 PT_URL = "https://data.kemdiktisaintek.go.id/download/datasets/6"      # Perguruan Tinggi.xlsx
-PT_COLS = {"npsn": "npsn", "name": "nama_pt", "address": "jln", "city_raw": "Kabupaten_pt",
-           "province_raw": "provinsi_pt"}
+PT_COLS = {"npsn": "npsn", "name": "nama_pt", "type": "nm_bp", "ownership_raw": "kelompok", "address": "jln",
+           "city_raw": "Kabupaten_pt", "province_raw": "provinsi_pt"}
 OFFICIAL_TOTAL = 4416                 # 2025 official; PDDikti homepage now shows 4621
 OFFICIAL_TOTAL_LABEL = "4,416 (2025 official total)"
 COUNT_TOLERANCE = 0.03                # widened from 2% by user decision (source has 4,303 = -2.56%)
@@ -19,7 +19,12 @@ UNKNOWN_CITY = "Jakarta (City Unknown)"    # user decision: kept rows whose city
 # ---- Stage 2: age filter -----------------------------------------------------
 PRODI_URL = "https://data.kemdiktisaintek.go.id/download/datasets/5"   # Program Studi.xlsx
 PRODI_COLS = {"npsn": "npsn", "level": "nm_jenj_didik"}
-KEEP_LEVELS = {"S1", "D3", "D4"}
+AGE_FILTER = False                     # user decision: every institution type qualifies; rows are kept and flagged
+KEEP_LEVELS = {"S1", "D3", "D4"}       # "Offers S1/D3/D4" flag (the original 17-25 filter, now a column)
+AGE_BANDS = [                          # (level, typical study age); first match on the youngest level wins
+    ("S1", "18-22"), ("D4", "18-22"), ("D3", "18-21"), ("D2", "18-20"), ("D1", "18-19"),
+]
+POSTGRAD_AGE = "23+"                   # S2, S3, Profesi, Spesialis
 POSTGRAD_LEVELS = {"S2", "S3", "S2T", "S3T", "PROFESI", "SP1", "SP2", "SUBSP"}
 LEVEL_ALIASES = {                      # key = upper-case, non-alphanumerics removed
     "DIII": "D3", "DIPLOMAIII": "D3", "DIV": "D4", "DIPLOMAIV": "D4",
@@ -70,6 +75,10 @@ CITY_ALIASES = {                       # cleaned source name -> current official
     "Kota Padang Sidempuan": "Kota Padangsidimpuan",
 }
 
+OWNERSHIP_LABELS = {                   # source "kelompok" -> plain label
+    "Swasta": "Private", "Negeri": "State", "PTA Swasta": "Religious (private)",
+    "PTA Negeri": "Religious (state)", "PTK": "Government service",
+}
 ADDRESS_MISSING = "Not published in source"   # label for blank or "-" street addresses (no empty cells)
 
 CITY_PROVINCE_FIXES = {                # city listed under two provinces in the source -> its current province
@@ -105,3 +114,4 @@ PIVOT_SHEET = "Pivot"                  # real Excel pivot: rows Province > City,
 PIVOT_ROWS = ["Province", "City"]
 PIVOT_COLUMNS = ["Beach"]
 PIVOT_COUNT = "Name"
+PIVOT_FILTERS = ["Type", "Offers S1/D3/D4"]   # page filters on the pivot

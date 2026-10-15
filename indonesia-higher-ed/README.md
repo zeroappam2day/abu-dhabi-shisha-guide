@@ -1,17 +1,17 @@
 # Indonesia higher-education workbook
 
 Builds `output/indonesia_higher_ed.xlsx` with three sheets:
-- **Institutions:** name, address, city, province, beach, duplicate.
-- **Summary:** city, province, institution count, beach.
-- **Pivot:** a real, refreshable Excel pivot table. Rows are province, then city; columns are beach; values are the count of institutions.
+- **Institutions:** NPSN, name, type, ownership, address, city, province, levels offered, offers S1/D3/D4, typical student age, beach, duplicate, city source.
+- **Summary:** city, province, institution count, beach, number offering S1/D3/D4.
+- **Pivot:** a real, refreshable Excel pivot table. Rows are province, then city; columns are beach; values are the count of institutions; filters are type and offers S1/D3/D4.
 
-It covers every institution with at least one S1, D3 or D4 program. Every stage ends with a gate. If a gate fails, the stage writes `data/gate_sN.txt` and exits, and the workbook is not produced.
+It covers every registered higher-education institution: all six types (Universitas, Institut, Sekolah Tinggi, Politeknik, Akademi and Akademi Komunitas), 4,303 rows. Nothing is dropped by age. The "Offers S1/D3/D4" and "Typical student age" columns let you filter instead (user decision; set `AGE_FILTER = True` in config to drop instead). Every stage ends with a gate. If a gate fails, the stage writes `data/gate_sN.txt` and exits, and the workbook is not produced.
 
 ## Sources and method
 | Stage | Source / rule |
 |---|---|
 | 1 Institutions | Kemdiktisaintek open-data portal, "Perguruan Tinggi.xlsx" (`download/datasets/6`, 2025), 4,303 rows. 36 rows with city "Lainnya" (meaning "other") are resolved from `city_research.csv`, which records evidence and confidence for each. |
-| 2 Age filter | "Program Studi.xlsx" (`download/datasets/5`), joined on NPSN. An institution is kept if it has any S1, D3 or D4 program. |
+| 2 Levels | "Program Studi.xlsx" (`download/datasets/5`), joined on NPSN. Records the levels each institution offers, whether it offers S1/D3/D4, and a typical student age (S1/D4 18-22, D3 18-21, D2 18-20, D1 18-19, postgraduate 23+). These are typical study ages, not measured: the source has no age data. |
 | 3 Clean | City and province prefixes are normalized. `CITY_ALIASES` maps typos and renamed regencies to current official names. Exact duplicates (same name, city and province) are flagged and never removed. |
 | 4 Beach | The OpenStreetMap Indonesia extract supplies kabupaten/kota boundaries. A city is "yes" if its boundary contains a named `natural=beach`, or a named "Pantai …" tourist attraction, viewpoint, picnic site or beach resort, within 300 m of the coastline and not mud or rock. OSM has gaps on the coast, so coastal cities with no OSM beach are decided by web-verified verdicts in `beach_web.csv`, each with a URL. |
 | 4 Spot-check | 20 seeded-random cities are compared with independent web verdicts in `spotcheck_web.csv`. At least 19 must agree. |
