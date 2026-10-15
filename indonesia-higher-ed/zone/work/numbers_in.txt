@@ -1,0 +1,33 @@
+poverty | Kabupaten Banyuwangi | Jawa Timur | baseline=6.13 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/c55e0dab406be7e/6-13-penduduk-di-kabupaten-banyuwangi-masuk-kategori-miskin
+poverty | Kabupaten Bekasi | Jawa Barat | baseline=4 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/812079fe2c7627e/9-23-penduduk-di-kabupaten-subang-masuk-kategori-miskin
+umk | Kabupaten Buleleng | Bali | baseline=UMP 3207459
+poverty | Kabupaten Cilacap | Jawa Tengah | baseline=9 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/97c24572b3df556/6-16-penduduk-di-kabupaten-tegal-masuk-kategori-miskin
+unemployment | Kabupaten Demak | Jawa Tengah | baseline=Unverified
+poverty | Kabupaten Demak | Jawa Tengah | baseline=10 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/97c24572b3df556/6-16-penduduk-di-kabupaten-tegal-masuk-kategori-miskin
+unemployment | Kabupaten Garut | Jawa Barat | baseline=Unverified
+umk | Kabupaten Jembrana | Bali | baseline=UMP 3207459
+umk | Kabupaten Karang Asem | Bali | baseline=UMP 3207459
+unemployment | Kabupaten Kulon Progo | DI Yogyakarta | baseline=Unverified
+poverty | Kabupaten Lamongan | Jawa Timur | baseline=12.03 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/7ba28009759507c/12-03-penduduk-di-kabupaten-lamongan-masuk-kategori-miskin
+poverty | Kabupaten Lampung Selatan | Lampung | baseline=12 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/85e22da8c964e8b/12-13-penduduk-di-kabupaten-pesisir-barat-masuk-kategori-miskin
+umk | Kabupaten Lampung Timur | Lampung | baseline=UMP 3047734
+poverty | Kabupaten Lebak | Banten | baseline=8 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/e29bc9793381a92/5-51-penduduk-di-kota-serang-masuk-kategori-miskin
+poverty | Kabupaten Pandeglang | Banten | baseline=8 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/e29bc9793381a92/5-51-penduduk-di-kota-serang-masuk-kategori-miskin
+poverty | Kabupaten Pangandaran | Jawa Barat | baseline=8 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/812079fe2c7627e/9-23-penduduk-di-kabupaten-subang-masuk-kategori-miskin
+poverty | Kabupaten Pati | Jawa Tengah | baseline=8 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/97c24572b3df556/6-16-penduduk-di-kabupaten-tegal-masuk-kategori-miskin
+poverty | Kabupaten Pekalongan | Jawa Tengah | baseline=8 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/97c24572b3df556/6-16-penduduk-di-kabupaten-tegal-masuk-kategori-miskin
+poverty | Kabupaten Pesawaran | Lampung | baseline=10 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/85e22da8c964e8b/12-13-penduduk-di-kabupaten-pesisir-barat-masuk-kategori-miskin
+umk | Kabupaten Pesawaran | Lampung | baseline=UMP 3047734
+umk | Kabupaten Pesisir Barat | Lampung | baseline=UMP 3047734
+poverty | Kabupaten Rembang | Jawa Tengah | baseline=13 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/97c24572b3df556/6-16-penduduk-di-kabupaten-tegal-masuk-kategori-miskin
+poverty | Kabupaten Serang | Banten | baseline=4 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/e29bc9793381a92/5-51-penduduk-di-kota-serang-masuk-kategori-miskin
+poverty | Kabupaten Situbondo | Jawa Timur | baseline=11 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/f818ecbe4c2f901/14-13-penduduk-di-kabupaten-tuban-masuk-kategori-miskin
+poverty | Kabupaten Tangerang | Banten | baseline=6 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/e29bc9793381a92/5-51-penduduk-di-kota-serang-masuk-kategori-miskin
+umk | Kabupaten Tanggamus | Lampung | baseline=UMP 3047734
+poverty | Kabupaten Trenggalek | Jawa Timur | baseline=10.29 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/351db1f7294c397/10-29-penduduk-di-kabupaten-trenggalek-masuk-kategori-miskin
+poverty | Kabupaten Tulungagung | Jawa Timur | baseline=5.96 | baseline_src=https://databoks.katadata.co.id/en/demographics/statistics/b6413a5f1bda1ff/poverty-rate-statistics-in-tulungagung-regency-2015-2024
+poverty | Kota Cilegon | Banten | baseline=3 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/e29bc9793381a92/5-51-penduduk-di-kota-serang-masuk-kategori-miskin
+poverty | Kota Cirebon | Jawa Barat | baseline=8 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/812079fe2c7627e/9-23-penduduk-di-kabupaten-subang-masuk-kategori-miskin
+poverty | Kota Jakarta Utara | DKI Jakarta | baseline=6 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/2a2705a30fab30b/12-37-penduduk-di-kabupaten-kepulauan-seribu-masuk-kategori-miskin
+umk | Kota Jakarta Utara | DKI Jakarta | baseline=UMP 5729876
+poverty | Kota Probolinggo | Jawa Timur | baseline=5 | baseline_src=https://databoks.katadata.co.id/demografi/statistik/f818ecbe4c2f901/14-13-penduduk-di-kabupaten-tuban-masuk-kategori-miskin
