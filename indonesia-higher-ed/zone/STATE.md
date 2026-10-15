@@ -1,5 +1,5 @@
 # Mission: close evidence gaps for the 70 priority-zone places (overlay only)
-Stage: Z0 Preflight (done)   Updated: 2026-10-15
+Stage: Z3 Numbers (done); stop before Z4 on safety recall   Updated: 2026-10-15
 
 ## Outcome
 - Deliverable: zone/output/priority_zone.xlsx + .html (70 rows; original 18 columns unchanged + v2 columns + Changed).
@@ -13,6 +13,11 @@ Stage: Z0 Preflight (done)   Updated: 2026-10-15
 | 3 | Z0 | All 7 swim "No" rows (not only Gianyar) need an opened URL, because the Z1 gate covers every Yes/No | Z1 gate text |
 | 4 | Z0 | Mission state is kept in zone/STATE.md; mission/STATE.md is baseline and read-only | rule 2 |
 
+| 5 | Z1 | Kota Serang No->Unverified (one beach only); reviewer override in zone_config | definition |
+| 6 | Z2 | Safety bands inferred from 23 existing ratings (no written definition in repo) | baseline data |
+| 7 | Z2 | Situbondo Medium->No rating (both sources = same press conference) | independence rule |
+| 8 | Z2 | Separate police accounts in one outlet (detik) count as independent | agent prompt rule |
+
 ## Budget ledger (200 searches/turn shared, 10 reserved)
 | Stage | Items | Planned searches | Note |
 |---|---|---|---|
@@ -21,5 +26,8 @@ Stage: Z0 Preflight (done)   Updated: 2026-10-15
 | Z3 numbers | 33 | ~40 | |
 | Z4 spot-check | 20 | ~40-60 | next turn if over cap |
 
+## Actuals (turn 1)
+Searches ~167/200: swim 46, safety 88, numbers 32, preflight 1.
+
 ## Open issues
-- (none)
+- Safety recall: 8/47 gaps rated (batch 0 via detik/antara tag pages: 8/16; batches 1-2 via search: 1/31). rri.co.id unreachable (403/archive blocked).

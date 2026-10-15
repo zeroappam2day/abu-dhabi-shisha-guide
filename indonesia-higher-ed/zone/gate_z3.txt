@@ -1,0 +1,5 @@
+PASS  rows = input lines, keys exact  [33 vs 33]
+PASS  every new number has URL  [bad=[]]
+PASS  poverty range check  [flagged=[]]
+PASS  applied  [31/33]
+PASS  baseline intact  [148 files match]
