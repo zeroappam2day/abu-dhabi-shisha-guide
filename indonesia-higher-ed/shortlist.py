@@ -24,7 +24,7 @@ def _val(value, src):
 def build(counts, under, beach):
     """Return (rows, problems). Missing evidence is labelled, never invented."""
     num, saf = _read(C.SHORTLIST_NUMERIC_FILE), _read(C.SHORTLIST_SAFETY_FILE)
-    rows, problems = [], {"no numeric row": [], "no safety row": []}
+    rows, problems = [], {"no numeric row": []}
     for (city, prov), n in sorted(counts.items()):
         if beach.get((city, prov)) != "yes":
             continue
@@ -32,9 +32,8 @@ def build(counts, under, beach):
         if m is None:
             problems["no numeric row"].append(city)
             m = {}
-        if s is None:
-            problems["no safety row"].append(city)
-            s = {}
+        if s is None:  # outside the researched 60 (user decision)
+            s = {"safety": C.NOT_RESEARCHED, "evidence": C.NOT_RESEARCHED}
         umk = _val(m.get("umk_2026_idr", ""), m.get("umk_src", ""))
         wage = _val(m.get("avg_wage_idr", ""), m.get("avg_wage_src", ""))
         tpt = _val(m.get("unemployment_pct", ""), m.get("unemployment_src", ""))

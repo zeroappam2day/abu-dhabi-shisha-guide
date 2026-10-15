@@ -54,7 +54,7 @@ def main():
          f"{sum(r[2] for r in summ)} across {len(summ)} cities"),
         ("no empty cells", not empty, f"{len(empty)} rows with empty cells"),
         ("shortlist has one row per beach city", len(short) == n_beach, f"{len(short)} vs {n_beach}"),
-        ("every shortlist city researched (numeric + safety)", not any(short_problems.values()),
+        ("every shortlist city has numeric research", not any(short_problems.values()),
          f"{ {k: len(v) for k, v in short_problems.items()} } e.g. {sum(short_problems.values(), [])[:10]}"),
     ])
     back.close()

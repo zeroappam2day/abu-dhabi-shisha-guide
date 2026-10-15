@@ -114,6 +114,9 @@ SHORTLIST_NUMERIC_FILE = ROOT / "shortlist_numeric.csv"   # poverty, TPT, UMK 20
 SHORTLIST_SAFETY_FILE = ROOT / "shortlist_safety.csv"     # High/Medium/Low/Insufficient evidence + dated sources
 UNVERIFIED = "Unverified"
 NOT_AT_REGENCY = "Not published at regency level"
+NOT_RESEARCHED = "Not researched"       # user decision: safety researched for the 60 largest beach places only
+SHORTLIST_SPOT_SEED = 3001             # seeded samples for the independent shortlist spot-check
+SHORTLIST_SPOT_FILE = ROOT / "shortlist_spotcheck.csv"
 
 # ---- Stage 5: deliver ----------------------------------------------------------
 WORKBOOK = OUTPUT / "indonesia_higher_ed.xlsx"
