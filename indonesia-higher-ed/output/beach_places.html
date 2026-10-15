@@ -22,6 +22,12 @@ th{position:sticky;top:0;background:var(--panel);text-align:left;font-weight:600
 th:hover{color:var(--ink)}th.sorted{color:var(--accent)}th .arrow{font-size:10px;margin-left:4px}
 td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}td.num{text-align:right;font-variant-numeric:tabular-nums}
 tr.row{cursor:pointer}tr.row:hover td{background:var(--accent-soft)}tr.row td:first-child{white-space:nowrap}
+.ms{position:relative}.ms summary{list-style:none;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 28px 6px 10px;white-space:nowrap;position:relative}
+.ms summary::-webkit-details-marker{display:none}.ms summary::after{content:"▾";position:absolute;right:10px;color:var(--muted)}
+.ms.active summary{border-color:var(--accent);color:var(--accent)}
+.ms .menu{position:absolute;z-index:20;top:calc(100% + 4px);left:0;min-width:240px;max-height:320px;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px;box-shadow:0 6px 24px rgba(0,0,0,.15)}
+.ms label{display:flex;gap:8px;align-items:center;padding:5px 6px;border-radius:4px;cursor:pointer;white-space:nowrap}.ms label:hover{background:var(--accent-soft)}
+.mbtn{display:flex;gap:6px;padding:2px 2px 6px;border-bottom:1px solid var(--line);margin-bottom:4px}.mbtn button{padding:3px 10px;font-size:12px}
 .copy{margin-left:6px;padding:2px 4px;border:1px solid transparent;background:none;color:var(--muted);vertical-align:-2px;line-height:0;border-radius:4px}
 .copy:hover{color:var(--accent);border-color:var(--line)}.copy.ok{color:var(--high)}
 .caret{display:inline-block;width:14px;color:var(--muted);transition:transform .15s}tr.open .caret{transform:rotate(90deg)}
@@ -41,9 +47,7 @@ footer{max-width:1400px;margin:auto;padding:0 16px 30px;color:var(--muted);font-
 <div class="stats" id="stats"></div></header>
 <div class="controls">
 <input type="search" id="q" placeholder="Search city, province, institution…" aria-label="Search">
-<select id="prov" aria-label="Province"><option value="">All provinces</option></select>
-<select id="saf" aria-label="Safety"><option value="">All safety</option></select>
-<select id="umk" aria-label="Wage basis"><option value="">UMK + UMP</option><option>UMK</option><option>UMP (no regency UMK)</option></select>
+<details class="ms" id="prov"></details><details class="ms" id="saf"></details><details class="ms" id="umk"></details>
 <button id="expand">Expand all</button><button id="collapse">Collapse all</button><button id="reset">Reset</button>
 <span class="count" id="count"></span></div>
 <main><table><thead><tr id="hdr"></tr></thead><tbody id="body"></tbody></table></main>
@@ -58,22 +62,34 @@ const $=id=>document.getElementById(id);const esc=s=>String(s??"").replace(/[&<>
 const fmt=(v,k)=>typeof v==="number"?(k.startsWith("UMK")?v.toLocaleString("id-ID"):(k.includes("%")?v.toFixed(2):v)):`<span class="muted">${esc(v)}</span>`;
 const badge=v=>`<span class="badge ${SRANK[v]<=2?"b-"+v:"b-none"}">${esc(v.startsWith("No rating")?"No rating":v)}</span>`;
 const linkify=s=>esc(s).replace(/https?:\/\/[^\s;)]+/g,u=>`<a href="${u}" target="_blank" rel="noopener">${u.length>70?u.slice(0,67)+"…":u}</a>`);
-function init(){for(const p of [...new Set(DATA.map(d=>d.Province))].sort())$("prov").insertAdjacentHTML("beforeend",`<option>${esc(p)}</option>`);
-for(const s of Object.keys(SRANK))$("saf").insertAdjacentHTML("beforeend",`<option>${esc(s)}</option>`);
+function init(){buildMS("prov","Province",[...new Set(DATA.map(d=>d.Province))].sort());
+buildMS("saf","Safety",Object.keys(SRANK).filter(v=>DATA.some(d=>d["Safety (walking around)"]===v)));
+buildMS("umk","Wage basis",[...new Set(DATA.map(d=>d["UMK basis"]))].sort());
+document.addEventListener("click",e=>document.querySelectorAll("details.ms[open]").forEach(m=>{if(!m.contains(e.target))m.open=false}));
 $("hdr").innerHTML=COLS.map(([k,l,t])=>`<th data-k="${esc(k)}" class="${t!=="s"&&t!=="safety"?"num":""}">${esc(l)}<span class="arrow"></span></th>`).join("");
 $("hdr").onclick=e=>{const th=e.target.closest("th");if(!th)return;const k=th.dataset.k;sortDir=k===sortKey?-sortDir:(["s","safety"].includes(COLS.find(c=>c[0]===k)[2])?1:-1);sortKey=k;render()};
-["q","prov","saf","umk"].forEach(id=>$(id).addEventListener("input",render));
+$("q").addEventListener("input",render);
 $("expand").onclick=()=>{rows().forEach(d=>open.add(d["City/Regency"]+"|"+d.Province));render()};
 $("collapse").onclick=()=>{open.clear();render()};
-$("reset").onclick=()=>{["q","prov","saf","umk"].forEach(id=>$(id).value="");open.clear();sortKey="Institution count";sortDir=-1;render()};
+$("reset").onclick=()=>{$("q").value="";Object.values(OFF).forEach(o=>o.clear());syncMS();open.clear();sortKey="Institution count";sortDir=-1;render()};
 $("body").onclick=e=>{const cb=e.target.closest("button.copy");if(cb){copyText(cb.dataset.copy,cb);return}if(e.target.closest("a,details"))return;const tr=e.target.closest("tr.row");if(!tr)return;const k=tr.dataset.k;open.has(k)?open.delete(k):open.add(k);render()};
 render()}
 function copyText(t,btn){const done=()=>{btn.classList.add("ok");btn.title="Copied";setTimeout(()=>{btn.classList.remove("ok");btn.title="Copy name"},1200)};
 const fallback=()=>{const a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();
 try{document.execCommand("copy");done()}catch(e){}a.remove()};
 if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(done,fallback);else fallback()}
-function rows(){const q=$("q").value.trim().toLowerCase(),p=$("prov").value,s=$("saf").value,u=$("umk").value;
-return DATA.filter(d=>(!p||d.Province===p)&&(!s||d["Safety (walking around)"]===s)&&(!u||d["UMK basis"]===u)&&
+const OFF={prov:new Set(),saf:new Set(),umk:new Set()},MSVALS={},MSLABEL={};
+function buildMS(id,label,vals){MSVALS[id]=vals;MSLABEL[id]=label;const el=$(id);
+el.innerHTML=`<summary></summary><div class="menu"><div class="mbtn"><button type="button" data-all>All</button><button type="button" data-none>None</button></div>`+
+vals.map(v=>`<label><input type="checkbox" value="${esc(v)}" checked> ${esc(v)}</label>`).join("")+`</div>`;
+el.addEventListener("change",e=>{const v=e.target.value;e.target.checked?OFF[id].delete(v):OFF[id].add(v);syncMS();render()});
+el.querySelector("[data-all]").onclick=()=>{OFF[id].clear();syncMS();render()};
+el.querySelector("[data-none]").onclick=()=>{vals.forEach(v=>OFF[id].add(v));syncMS();render()};syncMS()}
+function syncMS(){for(const id in MSVALS){const el=$(id),n=MSVALS[id].length-OFF[id].size;
+el.querySelector("summary").textContent=`${MSLABEL[id]} ${n===MSVALS[id].length?"(all)":n+"/"+MSVALS[id].length}`;el.classList.toggle("active",OFF[id].size>0);
+el.querySelectorAll("input").forEach(i=>i.checked=!OFF[id].has(i.value))}}
+function rows(){const q=$("q").value.trim().toLowerCase();
+return DATA.filter(d=>!OFF.prov.has(d.Province)&&!OFF.saf.has(d["Safety (walking around)"])&&!OFF.umk.has(d["UMK basis"])&&
 (!q||(d["City/Regency"]+" "+d.Province+" "+d.institutions.map(i=>i[0]).join(" ")).toLowerCase().includes(q)))
 .sort((a,b)=>{const t=COLS.find(c=>c[0]===sortKey)[2];let x=a[sortKey],y=b[sortKey];
 if(t==="safety"){x=SRANK[x];y=SRANK[y]}else if(t==="n"){const xn=typeof x==="number",yn=typeof y==="number";if(!xn||!yn)return xn===yn?0:(xn?-1:1)}
@@ -90,7 +106,7 @@ document.querySelectorAll("#hdr th").forEach(th=>{const on=th.dataset.k===sortKe
 $("body").innerHTML=r.map(d=>{const k=d["City/Regency"]+"|"+d.Province,o=open.has(k);
 return `<tr class="row${o?" open":""}" data-k="${esc(k)}"><td><span class="caret">▶</span>${esc(d["City/Regency"])}<button class="copy" data-copy="${esc(d["City/Regency"])}" title="Copy name" aria-label="Copy ${esc(d["City/Regency"])}"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td>${esc(d.Province)}</td>
 <td class="num">${d["Institution count"]}</td><td class="num">${d["Offering S1/D3/D4"]}</td><td>${badge(d["Safety (walking around)"])}</td>
-<td class="num">${fmt(d["UMK 2026 (IDR/month)"],"UMK")}</td><td class="num">${fmt(d["Unemployment rate % (all ages)"],"%")}</td><td class="num">${typeof d["Poverty rate %"]==="number"&&/decimals truncated/.test(d.Notes)?d["Poverty rate %"]+' <span class="muted" title="Source lists only whole numbers; true value is up to 1 point higher">(whole no.)</span>':fmt(d["Poverty rate %"],"%")}</td></tr>`+
+<td class="num">${fmt(d["UMK 2026 (IDR/month)"],"UMK")}</td><td class="num">${fmt(d["Unemployment rate % (all ages)"],"%")}</td><td class="num">${Number.isInteger(d["Poverty rate %"])&&/decimals truncated/.test(d.Notes)?d["Poverty rate %"]+' <span class="muted" title="Source lists only whole numbers; true value is up to 1 point higher">(whole no.)</span>':fmt(d["Poverty rate %"],"%")}</td></tr>`+
 (o?`<tr class="detail"><td colspan="8">${detail(d)}</td></tr>`:"")}).join("");
 $("count").textContent=`${r.length} of ${DATA.length} places · ${r.reduce((a,d)=>a+d["Institution count"],0).toLocaleString()} institutions`;
 const sc={};DATA.forEach(d=>sc[d["Safety (walking around)"]]=(sc[d["Safety (walking around)"]]||0)+1);
