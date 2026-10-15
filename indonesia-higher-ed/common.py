@@ -1,10 +1,7 @@
-"""Shared helpers: gates, stage I/O, name normalization, HTTP clients."""
+"""Shared helpers: gates, stage I/O, downloads, name normalization."""
 import csv
-import json
-import os
 import re
 import sys
-import time
 
 import config as C
 
@@ -36,28 +33,33 @@ def read_rows(name):
         return list(csv.DictReader(f))
 
 
-class JsonlCache:
-    """Append-only key -> JSON cache so long fetches resume after an interruption."""
-
-    def __init__(self, name):
+def download(url, name):
+    """Fetch url into DATA/name once; later runs reuse the file."""
+    import requests
+    path = C.DATA / name
+    if not path.exists():
         C.DATA.mkdir(exist_ok=True)
-        self.path = C.DATA / name
-        self.data = {}
-        if self.path.exists():
-            for line in self.path.read_text(encoding="utf-8").splitlines():
-                rec = json.loads(line)
-                self.data[rec["k"]] = rec["v"]
+        with requests.get(url, stream=True, timeout=600) as r:
+            r.raise_for_status()
+            tmp = path.with_suffix(".part")
+            with open(tmp, "wb") as f:
+                for chunk in r.iter_content(1 << 20):
+                    f.write(chunk)
+            tmp.replace(path)
+    return path
 
-    def __contains__(self, k):
-        return k in self.data
 
-    def __getitem__(self, k):
-        return self.data[k]
-
-    def put(self, k, v):
-        self.data[k] = v
-        with open(self.path, "a", encoding="utf-8") as f:
-            f.write(json.dumps({"k": k, "v": v}, ensure_ascii=False) + "\n")
+def read_xlsx(path, cols):
+    """Rows of the first sheet as dicts, renamed via cols {ours: theirs}; all values as stripped strings."""
+    from openpyxl import load_workbook
+    wb = load_workbook(path, read_only=True)
+    it = wb.worksheets[0].iter_rows(values_only=True)
+    header = [str(h).strip() if h is not None else "" for h in next(it)]
+    missing = [c for c in cols.values() if c not in header]
+    if missing:
+        sys.exit(f"{path.name}: columns {missing} not found; header is {header}")
+    idx = {ours: header.index(theirs) for ours, theirs in cols.items()}
+    return [{k: squash(str(row[i]) if row[i] is not None else "") for k, i in idx.items()} for row in it]
 
 
 def squash(s):
@@ -90,39 +92,13 @@ def clean_province(raw):
     return C.PROVINCE_ALIASES.get(s.lower(), s.title())
 
 
+def city_type(name):
+    """'kota', 'kab' or '' (no prefix) for a city name."""
+    head = clean_city(name).split(" ", 1)[0].lower()
+    return {"kota": "kota", "kabupaten": "kab"}.get(head, "")
+
+
 def match_key(name):
-    """Comparison key for city names across PDDikti and OSM spellings."""
-    s = clean_city(name).lower()
-    s = re.sub(r"^kabupaten ", "kab ", s)
-    return re.sub(r"[^a-z0-9 ]", "", s).strip()
-
-
-def pddikti_client():
-    from pddiktipy import api
-    cookie, ua = os.environ.get(C.ENV_CF_CLEARANCE), os.environ.get(C.ENV_USER_AGENT)
-    if cookie and ua:
-        return api(cf_clearance=cookie, user_agent=ua)
-    return api(auto_cookie=True)
-
-
-def pddikti_get(client, path):
-    """Raw GET that raises on any failure (pddiktipy's wrappers swallow errors into None)."""
-    time.sleep(C.REQUEST_PAUSE_S)
-    try:
-        return client.H.response(f"{client.api_link}/{path}")
-    except Exception as e:
-        sys.exit(f"PDDikti request failed for /{path}: {e}\n"
-                 f"If this is a 403, refresh {C.ENV_CF_CLEARANCE} and {C.ENV_USER_AGENT} and re-run; "
-                 "cached responses are kept.")
-
-
-def overpass(query):
-    import requests
-    for attempt in range(5):
-        time.sleep(C.OVERPASS_PAUSE_S * (2 ** attempt if attempt else 1))
-        r = requests.post(C.OVERPASS_URL, data={"data": query}, timeout=300)
-        if r.status_code == 200:
-            return r.json()["elements"]
-        if r.status_code not in (429, 502, 503, 504):
-            break
-    sys.exit(f"Overpass failed ({r.status_code}): {r.text[:300]}")
+    """Bare comparison key: prefix, 'dan', spaces and punctuation removed (Kab. Batubara == Batu Bara)."""
+    s = re.sub(r"^(kota|kabupaten) ", "", clean_city(name).lower())
+    return re.sub(r"[^a-z0-9]", "", re.sub(r"\bdan\b", "", s))

@@ -1,0 +1,37 @@
+npsn,name,city,province,confidence,evidence
+213417,STIT Ibnu Rusyd Grogot Paser,Kab. Paser,,high,official address (Perguruan Tinggi.xlsx jln): Kecamatan Tanah Grogot Kabupaten Paser
+213468,Sekolah Tinggi Agama Islam Indonesia Jakarta,Kota Jakarta Timur,,high,official address: Jl. I Gusti Ngurah Rai No. 39 Bulak Klender (Duren Sawit / Jakarta Timur)
+233088,Sekolah Tinggi Teologi IKSM Santosa Asih,Kota Jakarta Timur,,high,official address: Jl. Raya Condet no. 17 Balekambang - Kec. Kramat Jati Jakarta
+233001,Sekolah Tinggi Teologi Injili Indonesia Jakarta,Kota Jakarta Barat,,high,official address: Jl. Lapangan Bola 34i Kebon Jeruk Jakarta Barat
+233151,Sekolah Tinggi Teologi Injili Indonesia Purwokerto,Kab. Banyumas,,high,official address: Jalan Raya Kaliori 77 Kaliori-Banyumas
+233149,STT Jemaat Kristus Indonesia Salatiga,Kota Salatiga,,medium,official address Jl. Hasanudin No. 134 + city in name
+484001,Akademi Kepolisian (AKPOL),Kota Semarang,,high,official address: Jl. Sultan Agung Candi Baru Semarang
+213409,STAI Rasyidiyah Khalidiyah (RAKHA) Amuntai,Kab. Hulu Sungai Utara,,high,official address Jl. Rakha Pakapuran Amuntai (Amuntai = capital of Kab. Hulu Sungai Utara)
+213398,Sekolah Tinggi Ilmu Qur`an (STIQ) Amuntai,Kab. Hulu Sungai Utara,,high,official address: kecamatan Amuntai Utara Kabupaten Hulu Sungai Utara
+213369,STAI Samora Pematang Siantar,Kota Pematang Siantar,,high,official address: Kecamatan Siantar Sitalasari
+233249,Sekolah Tinggi Teologi Kalvari Maluku Utara,Kab. Halmahera Barat,,high,official address: Desa Tibobo Kec. Sahu Timur Kabupaten Halmahera Barat
+233212,Sekolah Tinggi Teologi Sidang Jemaat Kristus,Kota Batam,,high,institution website www.sttgsjki.ac.id: Jl. Raja Ali Kelana No.1B Batam
+233138,STT Harapan Indah,Kota Bekasi,,high,institution website sttharapanindah.ac.id/kontak: Kota Harapan Indah Bekasi 17131 (postcode 17131 = Medan Satria Kota Bekasi)
+233002,Sekolah Tinggi Teologi Jakarta,Kota Jakarta Pusat,,high,STFT Jakarta publications: Jl. Proklamasi 27 Jakarta Pusat 10320 (https://en.wikipedia.org/wiki/Jakarta_Theological_Seminary)
+233193,Sekolah Tinggi Teologi HKBP,Kota Pematang Siantar,,medium,Jl. Sangnawaluh No.6 Kota Pematang Siantar (https://info.populix.co/indonesia-masters-university-rankings/sekolah-tinggi-teologi-hkbp)
+405032,Poltekkes Kemenkes Gorontalo,Kota Gorontalo,,medium,Jl. Taman Pendidikan No. 36 Kota Gorontalo (web sources; official site poltekkesgorontalo.ac.id unreachable)
+233165,Sekolah Tinggi Agama Kristen Abdi Wacana,Kota Pontianak,,medium,Kemendikdasmen record for STAK Abdi Wacana Pontianak (NPSN 233047): Kec. Pontianak Selatan Kota Pontianak
+233224,Sekolah Tinggi Teologi Willfingger Kampung Baru,Kab. Nunukan,,low,id.wikipedia Daftar perguruan tinggi di Kalimantan Utara lists Kab. Nunukan; affiliated with GKII Daerah Krayan (Nunukan)
+233121,STT BAKTI FILADELFIA,Kota Jakarta Selatan,,low,institution Facebook page lists Cilandak (Jakarta Selatan)
+233239,STT BAHTERA JOSIAS,Kota Manado,,low,aggregator directories (datadikti.com) list it among Kota Manado institutions
+233172,Sekolah Tinggi Alkitab GPDI Beiji,Kota Batu,Jawa Timur,medium,Kemendikdasmen registry NPSN 233172: Desa Beji Kec. Junrejo Kota Batu Prov. Jawa Timur (name 'Beiji' = Beji); source file province Aceh overridden
+233144,STT Anugerah Alianse Semarang,Kota Surakarta,,low,institution website domain sttaassurakarta.ac.id (Surakarta); conflicts with 'Semarang' in name
+233168,Sekolah Tinggi Teologi Adhi Wacana Surabaya,Kota Surabaya,,low,city in official name only
+233211,Sekolah Tinggi Teologi Presbyterian Batam,Kota Batam,,low,city in official name only
+233237,Sekolah Tinggi Teologi Tabernakel Tomohon,Kota Tomohon,,low,city in official name only
+233183,Sekolah Tinggi Teologi Global Misi Medan,Kota Medan,,low,city in official name only
+233288,Sekolah Tinggi Agama Kristen Bina Citra Persada Medan,Kota Medan,,low,city in official name only
+233185,Sekolah Tinggi Teologi Siloam Medan,Kota Medan,,low,city in official name only
+233245,Sekolah Tinggi Teologi Palu,Kota Palu,,low,city in official name only
+233068,STAK Oikumene Noseni Biak Numfor,Kab. Biak Numfor,,low,regency in official name only
+233252,Sekolah Tinggi Teologi Arta Wacana Kupang,Kota Kupang,,low,city in official name only
+233116,STT MAHKOTA Sion,Jakarta (city unknown),DKI Jakarta,none,no address in any official file or web source found
+233100,Sekolah Tinggi Teologi Ecclesia Christi Jakarta,Jakarta (city unknown),DKI Jakarta,none,no address in any official file or web source found (Kemendikdasmen record blank)
+233273,STT Misi Bethany Jakarta,Jakarta (city unknown),DKI Jakarta,none,no address in any official file or web source found
+233277,Sekolah Tinggi Teologi Siloam Internasional,Jakarta (city unknown),DKI Jakarta,none,no address in any official file or web source found
+233120,SAAT MINISTRY CENTER,Jakarta (city unknown),DKI Jakarta,none,no Jakarta address found (dropped at Stage 2 as postgraduate-only)

@@ -1,13 +1,14 @@
-"""Offline tests: run each stage on mocked PDDikti/Overpass/GeoNames data. `pytest -q`"""
+"""Offline tests: run each stage on small fixture files. `pytest -q`"""
 import json
-import zipfile
 
 import pytest
-from openpyxl import load_workbook
+import shapely
+from openpyxl import Workbook, load_workbook
+from shapely.geometry import LineString, Point, Polygon
 
 import config as C
 import s1_source, s2_age_filter, s3_clean, s4_beach, s5_deliver
-from common import clean_city, clean_province, match_key, norm_level, read_rows, write_rows
+from common import city_type, clean_city, clean_province, match_key, norm_level, read_rows, write_rows
 
 
 @pytest.fixture(autouse=True)
@@ -15,8 +16,15 @@ def tmp_data(tmp_path, monkeypatch):
     monkeypatch.setattr(C, "DATA", tmp_path / "data")
     monkeypatch.setattr(C, "OUTPUT", tmp_path / "out")
     monkeypatch.setattr(C, "WORKBOOK", tmp_path / "out" / "wb.xlsx")
-    monkeypatch.setattr(C, "REQUEST_PAUSE_S", 0)
-    monkeypatch.setattr(C, "OVERPASS_PAUSE_S", 0)
+    C.DATA.mkdir()
+
+
+def xlsx(name, header, rows):
+    wb = Workbook()
+    wb.active.append(header)
+    for r in rows:
+        wb.active.append(r)
+    wb.save(C.DATA / name)
 
 
 def test_normalizers():
@@ -26,8 +34,9 @@ def test_normalizers():
     assert clean_city("KOTA ADM. JAKARTA SELATAN") == "Kota Jakarta Selatan"
     assert clean_city("Kabupaten Administrasi Kepulauan Seribu") == "Kabupaten Kepulauan Seribu"
     assert clean_province("Prov. D.I. Yogyakarta") == "DI Yogyakarta"
-    assert clean_province("Daerah Khusus Ibukota Jakarta") == "DKI Jakarta"
-    assert match_key("Kab. Bandung") == match_key("Kabupaten Bandung") != match_key("Kota Bandung")
+    assert clean_province("Prov. D.K.I. Jakarta") == "DKI Jakarta"
+    assert match_key("Kab. Batubara") == match_key("Batu Bara") and match_key("Pangkajene Kepulauan") == match_key("Pangkajene dan Kepulauan")
+    assert city_type("Kab. Bandung") == "kab" and city_type("Kota Bandung") == "kota" and city_type("Bandung") == ""
 
 
 def test_classify():
@@ -36,75 +45,53 @@ def test_classify():
     assert c({"S2", "S3"}) == "postgrad-only" and c({"D1", "D2"}) == "non-degree" and c(set()) == "no-data"
 
 
-def fake_pddikti(n_active):
-    pts = [{"id_sp": f"id{i}"} for i in range(n_active + 1)]
-    details = {f"id{i}": {"nama_pt": f"Univ {i % 3}", "kode_pt": str(i), "kab_kota_pt": "Kab. Badung",
-                          "provinsi_pt": "Prov. Bali", "status_pt": "Aktif"} for i in range(n_active)}
-    details[f"id{n_active}"] = {"nama_pt": "Closed", "kab_kota_pt": "Kota X", "provinsi_pt": "Bali", "status_pt": "Tutup"}
-    progs = {"id0": [{"jenjang_prodi": "S2", "status_prodi": "Aktif"}],
-             "id1": [{"jenjang_prodi": "D-I", "status_prodi": "Aktif"}]}
-
-    def get(_client, path):
-        if path == "pt/count":
-            return {"data": {"jumlah": C.OFFICIAL_TOTAL}}
-        if path.startswith("v2/pt/search/filter"):
-            off = int(path.split("offset=")[1])
-            return {"data": pts[off:off + C.LIST_PAGE_SIZE]}
-        if path.startswith("pt/detail/"):
-            return {"data": details[path.split("/")[-1]]}
-        pt = path.split("/")[2]
-        return {"data": progs.get(pt, [{"jenjang_prodi": "S1", "status_prodi": "Aktif"}])}
-    return get
+def write_sources(n):
+    xlsx("src_perguruan_tinggi.xlsx", ["npsn", "nama_pt", "Kabupaten_pt", "provinsi_pt"],
+         [[f"{i:06d}", f"Univ {i % 3}", "Kab. Badung", "Prov. Bali"] for i in range(n)])
+    levels = {0: "S2", 1: "D1"}
+    xlsx("src_program_studi.xlsx", ["npsn", "nm_jenj_didik"], [[f"{i:06d}", levels.get(i, "S1")] for i in range(n)])
 
 
-def mock_pddikti(monkeypatch, n):
-    client = type("Cl", (), {"H": type("H", (), {"parse": staticmethod(str)})})()
-    for m in (s1_source, s2_age_filter):
-        monkeypatch.setattr(m, "pddikti_get", fake_pddikti(n))
-        monkeypatch.setattr(m, "pddikti_client", lambda: client)
-
-
-def test_s1_gate_fails_on_short_count(monkeypatch):
-    mock_pddikti(monkeypatch, 10)
+def test_s1_gate_fails_on_short_count():
+    write_sources(10)
     with pytest.raises(SystemExit, match="Stage 1 gate FAILED"):
         s1_source.main()
 
 
 def test_end_to_end(monkeypatch):
     n = C.OFFICIAL_TOTAL
-    mock_pddikti(monkeypatch, n)
+    write_sources(n)
     s1_source.main()
     s2_age_filter.main()
-    assert len(read_rows("s1_institutions.csv")) == n                    # closed PT excluded
-    kept = read_rows("s2_institutions.csv")
-    assert len(kept) == n - 2                                            # S2-only and D1-only dropped
+    assert len(read_rows("s2_institutions.csv")) == n - 2                # S2-only and D1-only dropped
     s3_clean.main()
     rows = read_rows("s3_institutions.csv")
     assert {r["city"] for r in rows} == {"Kabupaten Badung"} and rows[0]["province"] == "Bali"
     assert all(r["duplicate"] == "yes" for r in rows)                    # names repeat in same city
 
-    square = [{"lat": 0, "lon": 0}, {"lat": 0, "lon": 1}, {"lat": 1, "lon": 1}, {"lat": 1, "lon": 0}, {"lat": 0, "lon": 0}]
-    hole = [{"lat": .4, "lon": .4}, {"lat": .4, "lon": .6}, {"lat": .6, "lon": .6}, {"lat": .6, "lon": .4}, {"lat": .4, "lon": .4}]
-
-    def fake_overpass(q):
-        if "foreach" in q:
-            return [{"tags": {"admin_level": "4", "name": "Bali"}},
-                    {"id": 77, "tags": {"admin_level": "5", "name": "Kabupaten Badung"}}]
-        if "out geom" in q:
-            return [{"members": [{"type": "way", "role": "outer", "geometry": square},
-                                 {"type": "way", "role": "inner", "geometry": hole}]}]
-        return [{"type": "way", "id": 5, "tags": {"natural": "beach", "name": "Pantai Kuta", "surface": "sand"}},
-                {"type": "way", "id": 6, "tags": {"natural": "beach", "name": "Mud Flat", "surface": "mud"}}]
-    monkeypatch.setattr(s4_beach, "overpass", fake_overpass)
+    square = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)]).difference(Polygon([(.4, .4), (.6, .4), (.6, .6), (.4, .6)]))
+    feats = [
+        {"kind": "admin", "id": 1, "tags": {"admin_level": "4", "name": "Bali"}, "geom": Polygon([(-1, -1), (2, -1), (2, 2), (-1, 2)])},
+        {"kind": "admin", "id": 77, "tags": {"admin_level": "5", "name": "Kabupaten Badung"}, "geom": square},
+        {"kind": "coast", "geom": LineString([(0.1, 0), (0.1, 1)])},
+        {"kind": "coast", "geom": LineString([(0.5, 0.45), (0.5, 0.55)])},   # inside the enclave hole
+        {"kind": "beach", "osm": ["way", 5], "tags": {"name": "Pantai Kuta", "surface": "sand"}, "geom": Point(0.1005, 0.2)},
+        {"kind": "beach", "osm": ["way", 6], "tags": {"name": "Mud Flat", "surface": "mud"}, "geom": Point(0.1005, 0.3)},
+        {"kind": "beach", "osm": ["node", 7], "tags": {"name": "Lake Beach"}, "geom": Point(0.9, 0.9)},
+        {"kind": "beach", "osm": ["node", 8], "tags": {"name": "Pantai In Hole", "tourism": "attraction"}, "geom": Point(0.5, 0.5)},
+    ]
+    with open(C.DATA / s4_beach.FEATURES, "w") as f:
+        for r in feats:
+            f.write(json.dumps({**{k: v for k, v in r.items() if k != "geom"}, "wkb": shapely.to_wkb(r["geom"], hex=True)}) + "\n")
+    monkeypatch.setattr(C, "SPOTCHECK_FILE", C.DATA / "spot.csv")
+    write_rows("spot.csv", [{"city": "Kabupaten Badung", "province": "Bali", "web_beach": "yes", "evidence": "x"}],
+               ["city", "province", "web_beach", "evidence"])
     monkeypatch.setattr(C, "SPOTCHECK_MIN_AGREE", 1)                     # fixture has 1 city, not 20
-    C.DATA.mkdir(exist_ok=True)
-    with zipfile.ZipFile(C.DATA / "geonames_ID.zip", "w") as z:
-        z.writestr("ID.txt", "1\tPantai Kuta\tx\t\t0.2\t0.2\tT\tBCH\n2\tIn Hole\tx\t\t0.5\t0.5\tT\tBCH\n")
     s4_beach.main()
     city = read_rows("s4_cities.csv")[0]
     assert city["beach"] == "yes" and city["beach_names"] == "Pantai Kuta" and city["beach_source"].endswith("/way/5")
     spot = read_rows("s4_spotcheck.csv")[0]
-    assert spot["geonames_names"] == "Pantai Kuta" and spot["agree"] == "yes"   # hole point excluded
+    assert spot["agree"] == "yes"
 
     s5_deliver.main()
     wb = load_workbook(C.WORKBOOK)
@@ -113,14 +100,22 @@ def test_end_to_end(monkeypatch):
     assert list(wb["Summary"].iter_rows(min_row=2, values_only=True)) == [("Kabupaten Badung", "Bali", len(rows), "yes")]
 
 
-def test_s4_gate_fails_on_unmatched_city(monkeypatch):
+def test_is_beach():
+    assert s4_beach.is_beach({"natural": "beach", "name": "Kuta"})
+    assert s4_beach.is_beach({"tourism": "attraction", "name": "Pantai Parangtritis"})
+    assert not s4_beach.is_beach({"tourism": "hotel", "name": "Pantai Inn"})
+    assert not s4_beach.is_beach({"tourism": "attraction", "name": "Danau Toba"})
+    assert not s4_beach.is_beach({"natural": "beach"})
+
+
+def test_s4_gate_fails_on_unmatched_city():
     write_rows("s3_institutions.csv", [{"name": "A", "city": "Kota Nowhere", "province": "Bali"}], ["name", "city", "province"])
-    (C.DATA / "osm_admin.json").write_text(json.dumps([]))
+    (C.DATA / s4_beach.FEATURES).write_text("")
     with pytest.raises(SystemExit, match="Stage 4 gate FAILED"):
         s4_beach.main()
 
 
-def test_s5_gate_fails_on_missing_beach(monkeypatch):
+def test_s5_gate_fails_on_missing_beach():
     write_rows("s3_institutions.csv", [{"name": "A", "city": "Kota Y", "province": "Bali", "duplicate": "no"}],
                ["name", "city", "province", "duplicate"])
     write_rows("s4_cities.csv", [], ["city", "province", "beach"])
