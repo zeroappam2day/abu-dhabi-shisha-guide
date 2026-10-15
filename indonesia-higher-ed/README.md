@@ -60,7 +60,7 @@ It covers every registered higher-education institution: all six types (Universi
 | Average net wage | BPS publishes it only nationally/provincially | "Not published at regency level" for all 260 |
 | Unemployment rate | BPS TPT, all ages, 2025, via Databoks/GoodStats mirrors (bps.go.id is firewalled); period as published ("Desember 2025") | 251/260; 9 "Unverified" |
 | Poverty rate | BPS P0 2025 via mirrors; 69 values exist only as whole numbers from provincial lists (decimals truncated, labelled in Notes) | 258/260; 2 "Unverified" |
-| Swimmable sand beach | Yes = a named sea beach inside the city/regency with sand (not pebble, rock, coral rubble or mud) and a source describing swimming; No = only non-sand shores or swimming banned; evidence in `shortlist_swim.csv` | 120 largest researched (90 Yes, 6 No, 24 Unverified); 140 "Not researched" |
+| Swimmable sand beach | Yes = a named sea beach inside the city/regency with sand (not pebble, rock, coral rubble or mud) and a source describing swimming; No = only non-sand shores or swimming banned; evidence in `shortlist_swim.csv` | 260/260 researched: 145 Yes, 8 No, 107 Unverified (sand or swimming not evidenced); no independent spot-check yet |
 | Priority zone | User's priority area by province: Java (Banten, DKI Jakarta, Jawa Barat, Jawa Tengah, DI Yogyakarta, Jawa Timur), Bali, Lampung; others "Outside" (`config.PRIORITY_ZONES`) | 70 of 260 in zone |
 | Safety | High/Medium/Low from >=2 independent local news, police or forum sources dated 15 Apr - 15 Oct 2026; forum-only evidence failed its pilot (0/5) | 60 largest places researched; 200 "Not researched" (user decision); 25 of the 60 "No rating: <2 dated sources found" |
 
