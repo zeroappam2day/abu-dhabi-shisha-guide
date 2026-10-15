@@ -1,5 +1,5 @@
 # Mission: append safety, wage, unemployment, poverty to the 260 beach places
-Stage: 1 Plan (done) -> 2 Probe (pilot)   Updated: 2026-10-15
+Stage: 4 Fill residue (numeric: all provinces; safety: batch 0 of ~13)   Updated: 2026-10-15
 
 ## Outcome (from brief)
 - For: user comparing beach places for students aged 17-25. Deliverable: new "Beach shortlist" sheet, 260 rows.
@@ -16,6 +16,10 @@ Stage: 1 Plan (done) -> 2 Probe (pilot)   Updated: 2026-10-15
 | 3 | Brief | Safety from forum comments, last 6 months, needs >=2 independent comments, else "Insufficient evidence" | user |
 | 4 | Brief | Salary = UMK 2026 + BPS average wage where published | user |
 | 5 | Plan | BPS (incl. API) blocked by firewall; WebFetch cannot resolve .go.id; Reddit 403; numeric metrics via news/Databoks/provincial portals | preflight |
+
+| 6 | Probe | Safety pilot forum-only: 0/5 places had >=2 dated comments -> method failed sample test | pilot_safety.csv |
+| 7 | Probe | Safety method changed to forum OR local news/police reports, >=2 independent sources, same window and bands | user |
+| 8 | Probe | Numeric pilot (Sulsel, 11 searches): UMK 16/16, TPT 15/16, P0 14/16 decimals; rounded values / as-published periods recorded with label | pilot_numeric.csv; user |
 
 ## Budget ledger
 | Stage | Planned searches | Planned turns | Actual |

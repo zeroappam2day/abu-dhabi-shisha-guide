@@ -108,6 +108,13 @@ SPOTCHECK_SEED = 2026                  # fresh sample after the web pass (seed 2
 BEACH_WEB_FILE = ROOT / "beach_web.csv"   # web verdicts for coastal cities OSM marks "no" (OSM has gaps there)
 SPOTCHECK_FILE = ROOT / "spotcheck_web.csv"   # second source: city, web_beach (yes/no), evidence (URL + named beach)
 
+# ---- Beach shortlist metrics (web-researched, evidence-backed) -------------------
+SHORTLIST_SHEET = "Beach shortlist"
+SHORTLIST_NUMERIC_FILE = ROOT / "shortlist_numeric.csv"   # poverty, TPT, UMK 2026, avg wage per city + source URLs
+SHORTLIST_SAFETY_FILE = ROOT / "shortlist_safety.csv"     # High/Medium/Low/Insufficient evidence + dated sources
+UNVERIFIED = "Unverified"
+NOT_AT_REGENCY = "Not published at regency level"
+
 # ---- Stage 5: deliver ----------------------------------------------------------
 WORKBOOK = OUTPUT / "indonesia_higher_ed.xlsx"
 PIVOT_SHEET = "Pivot"                  # real Excel pivot: rows Province > City/Regency, columns Beach, values count of Name

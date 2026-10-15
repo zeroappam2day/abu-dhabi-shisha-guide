@@ -1,0 +1,20 @@
+Kota Medan | Sumatera Utara
+Kota Makassar | Sulawesi Selatan
+Kota Surabaya | Jawa Timur
+Kota Semarang | Jawa Tengah
+Kota Padang | Sumatera Barat
+Kota Manado | Sulawesi Utara
+Kota Denpasar | Bali
+Kota Batam | Kepulauan Riau
+Kabupaten Tangerang | Banten
+Kota Bandar Lampung | Lampung
+Kota Kupang | Nusa Tenggara Timur
+Kota Banda Aceh | Aceh
+Kabupaten Bekasi | Jawa Barat
+Kabupaten Deli Serdang | Sumatera Utara
+Kabupaten Cirebon | Jawa Barat
+Kota Palu | Sulawesi Tengah
+Kota Mataram | Nusa Tenggara Barat
+Kota Kendari | Sulawesi Tenggara
+Kabupaten Bantul | DI Yogyakarta
+Kabupaten Jember | Jawa Timur

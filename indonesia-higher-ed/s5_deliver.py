@@ -1,9 +1,10 @@
-"""Stage 5: write the 2-sheet workbook and verify it by reading it back."""
+"""Stage 5: write the Institutions, Summary and Beach shortlist sheets and verify them by reading back."""
 from collections import Counter
 
 from openpyxl import Workbook, load_workbook
 
 import config as C
+import shortlist
 from common import gate, read_rows
 
 INST_COLS = ["NPSN", "Name", "Type", "Ownership", "Address", "City/Regency", "Province", "Levels offered",
@@ -29,7 +30,12 @@ def main():
     ws2.append(SUM_COLS)
     for (city, prov), n in sorted(counts.items()):
         ws2.append([city, prov, n, beach.get((city, prov), ""), under[(city, prov)]])
-    for sheet in (ws, ws2):
+    ws3 = wb.create_sheet(C.SHORTLIST_SHEET)
+    ws3.append(shortlist.COLS)
+    short_rows, short_problems = shortlist.build(counts, under, beach)
+    for row in short_rows:
+        ws3.append(row)
+    for sheet in (ws, ws2, ws3):
         sheet.freeze_panes = "A2"
         sheet.auto_filter.ref = sheet.dimensions
     C.OUTPUT.mkdir(exist_ok=True)
@@ -39,12 +45,17 @@ def main():
     back = load_workbook(draft, read_only=True)
     inst = list(back["Institutions"].iter_rows(min_row=2, values_only=True))
     summ = list(back["Summary"].iter_rows(min_row=2, values_only=True))
-    empty = [i for i, row in enumerate(inst + summ) if any(v in (None, "") for v in row)]
+    short = list(back[C.SHORTLIST_SHEET].iter_rows(min_row=2, values_only=True))
+    empty = [i for i, row in enumerate(inst + summ + short) if any(v in (None, "") for v in row)]
+    n_beach = sum(1 for k, v in beach.items() if v == "yes" and k in counts)
     gate(5, [
         ("Institutions rows equal Stage 3", len(inst) == len(rows), f"{len(inst)} vs {len(rows)}"),
         ("Summary counts sum to the same total", sum(r[2] for r in summ) == len(rows),
          f"{sum(r[2] for r in summ)} across {len(summ)} cities"),
         ("no empty cells", not empty, f"{len(empty)} rows with empty cells"),
+        ("shortlist has one row per beach city", len(short) == n_beach, f"{len(short)} vs {n_beach}"),
+        ("every shortlist city researched (numeric + safety)", not any(short_problems.values()),
+         f"{ {k: len(v) for k, v in short_problems.items()} } e.g. {sum(short_problems.values(), [])[:10]}"),
     ])
     back.close()
     draft.replace(C.WORKBOOK)

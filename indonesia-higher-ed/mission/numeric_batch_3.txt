@@ -1,0 +1,41 @@
+Kabupaten Aceh Barat | Aceh
+Kabupaten Aceh Barat Daya | Aceh
+Kabupaten Aceh Besar | Aceh
+Kabupaten Aceh Jaya | Aceh
+Kabupaten Aceh Selatan | Aceh
+Kabupaten Aceh Singkil | Aceh
+Kabupaten Aceh Timur | Aceh
+Kabupaten Aceh Utara | Aceh
+Kabupaten Bireuen | Aceh
+Kabupaten Nagan Raya | Aceh
+Kabupaten Pidie | Aceh
+Kabupaten Pidie Jaya | Aceh
+Kabupaten Simeulue | Aceh
+Kota Banda Aceh | Aceh
+Kota Lhokseumawe | Aceh
+Kota Sabang | Aceh
+Kabupaten Buru | Maluku
+Kabupaten Kepulauan Aru | Maluku
+Kabupaten Kepulauan Tanimbar | Maluku
+Kabupaten Maluku Tengah | Maluku
+Kabupaten Maluku Tenggara | Maluku
+Kabupaten Seram Bagian Barat | Maluku
+Kabupaten Seram Bagian Timur | Maluku
+Kota Ambon | Maluku
+Kota Tual | Maluku
+Kabupaten Badung | Bali
+Kabupaten Buleleng | Bali
+Kabupaten Gianyar | Bali
+Kabupaten Jembrana | Bali
+Kabupaten Karang Asem | Bali
+Kabupaten Tabanan | Bali
+Kota Denpasar | Bali
+Kabupaten Bengkayang | Kalimantan Barat
+Kabupaten Ketapang | Kalimantan Barat
+Kabupaten Mempawah | Kalimantan Barat
+Kabupaten Sambas | Kalimantan Barat
+Kota Singkawang | Kalimantan Barat
+Kabupaten Kota Baru | Kalimantan Selatan
+Kabupaten Tanah Bumbu | Kalimantan Selatan
+Kabupaten Tanah Laut | Kalimantan Selatan
+Kota Jakarta Utara | DKI Jakarta

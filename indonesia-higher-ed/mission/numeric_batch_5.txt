@@ -1,0 +1,40 @@
+Kabupaten Bombana | Sulawesi Tenggara
+Kabupaten Buton | Sulawesi Tenggara
+Kabupaten Kolaka | Sulawesi Tenggara
+Kabupaten Kolaka Utara | Sulawesi Tenggara
+Kabupaten Konawe | Sulawesi Tenggara
+Kabupaten Konawe Selatan | Sulawesi Tenggara
+Kabupaten Muna | Sulawesi Tenggara
+Kabupaten Muna Barat | Sulawesi Tenggara
+Kabupaten Wakatobi | Sulawesi Tenggara
+Kota Baubau | Sulawesi Tenggara
+Kota Kendari | Sulawesi Tenggara
+Kabupaten Bekasi | Jawa Barat
+Kabupaten Cianjur | Jawa Barat
+Kabupaten Cirebon | Jawa Barat
+Kabupaten Garut | Jawa Barat
+Kabupaten Indramayu | Jawa Barat
+Kabupaten Karawang | Jawa Barat
+Kabupaten Pangandaran | Jawa Barat
+Kabupaten Subang | Jawa Barat
+Kabupaten Sukabumi | Jawa Barat
+Kabupaten Tasikmalaya | Jawa Barat
+Kota Cirebon | Jawa Barat
+Kabupaten Banggai | Sulawesi Tengah
+Kabupaten Buol | Sulawesi Tengah
+Kabupaten Morowali | Sulawesi Tengah
+Kabupaten Morowali Utara | Sulawesi Tengah
+Kabupaten Poso | Sulawesi Tengah
+Kabupaten Toli-Toli | Sulawesi Tengah
+Kota Palu | Sulawesi Tengah
+Kabupaten Boalemo | Gorontalo
+Kabupaten Bone Bolango | Gorontalo
+Kabupaten Gorontalo | Gorontalo
+Kabupaten Gorontalo Utara | Gorontalo
+Kabupaten Pohuwato | Gorontalo
+Kota Gorontalo | Gorontalo
+Kabupaten Majene | Sulawesi Barat
+Kabupaten Mamuju | Sulawesi Barat
+Kabupaten Pasangkayu | Sulawesi Barat
+Kabupaten Polewali Mandar | Sulawesi Barat
+Kabupaten Ogan Komering Ilir | Sumatera Selatan

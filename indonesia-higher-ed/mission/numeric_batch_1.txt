@@ -1,0 +1,41 @@
+Kabupaten Alor | Nusa Tenggara Timur
+Kabupaten Belu | Nusa Tenggara Timur
+Kabupaten Ende | Nusa Tenggara Timur
+Kabupaten Flores Timur | Nusa Tenggara Timur
+Kabupaten Kupang | Nusa Tenggara Timur
+Kabupaten Malaka | Nusa Tenggara Timur
+Kabupaten Manggarai | Nusa Tenggara Timur
+Kabupaten Manggarai Barat | Nusa Tenggara Timur
+Kabupaten Nagekeo | Nusa Tenggara Timur
+Kabupaten Ngada | Nusa Tenggara Timur
+Kabupaten Rote-Ndao | Nusa Tenggara Timur
+Kabupaten Sikka | Nusa Tenggara Timur
+Kabupaten Sumba Barat Daya | Nusa Tenggara Timur
+Kabupaten Sumba Timur | Nusa Tenggara Timur
+Kabupaten Timor Tengah Selatan | Nusa Tenggara Timur
+Kabupaten Timor Tengah Utara | Nusa Tenggara Timur
+Kota Kupang | Nusa Tenggara Timur
+Kabupaten Biak Numfor | Papua
+Kabupaten Jayapura | Papua
+Kabupaten Kepulauan Yapen | Papua
+Kabupaten Merauke | Papua
+Kabupaten Mimika | Papua
+Kabupaten Nabire | Papua
+Kabupaten Supiori | Papua
+Kota Jayapura | Papua
+Kabupaten Bintan | Kepulauan Riau
+Kabupaten Karimun | Kepulauan Riau
+Kabupaten Kepulauan Anambas | Kepulauan Riau
+Kabupaten Lingga | Kepulauan Riau
+Kabupaten Natuna | Kepulauan Riau
+Kota Batam | Kepulauan Riau
+Kota Tanjungpinang | Kepulauan Riau
+Kabupaten Bengkalis | Riau
+Kabupaten Indragiri Hilir | Riau
+Kabupaten Kepulauan Meranti | Riau
+Kabupaten Rokan Hilir | Riau
+Kota Dumai | Riau
+Kabupaten Bangka | Kepulauan Bangka Belitung
+Kabupaten Bangka Tengah | Kepulauan Bangka Belitung
+Kabupaten Belitung | Kepulauan Bangka Belitung
+Kota Pangkalpinang | Kepulauan Bangka Belitung

@@ -1,0 +1,260 @@
+Kota Medan | Sumatera Utara
+Kota Makassar | Sulawesi Selatan
+Kota Surabaya | Jawa Timur
+Kota Semarang | Jawa Tengah
+Kota Padang | Sumatera Barat
+Kota Manado | Sulawesi Utara
+Kota Denpasar | Bali
+Kota Batam | Kepulauan Riau
+Kabupaten Tangerang | Banten
+Kota Bandar Lampung | Lampung
+Kota Kupang | Nusa Tenggara Timur
+Kota Banda Aceh | Aceh
+Kabupaten Bekasi | Jawa Barat
+Kabupaten Deli Serdang | Sumatera Utara
+Kabupaten Cirebon | Jawa Barat
+Kota Palu | Sulawesi Tengah
+Kota Mataram | Nusa Tenggara Barat
+Kota Kendari | Sulawesi Tenggara
+Kabupaten Bantul | DI Yogyakarta
+Kabupaten Jember | Jawa Timur
+Kota Jakarta Utara | DKI Jakarta
+Kota Jayapura | Papua
+Kabupaten Gresik | Jawa Timur
+Kabupaten Garut | Jawa Barat
+Kabupaten Cianjur | Jawa Barat
+Kabupaten Banyuwangi | Jawa Timur
+Kota Serang | Banten
+Kota Balikpapan | Kalimantan Timur
+Kota Ambon | Maluku
+Kabupaten Pasuruan | Jawa Timur
+Kabupaten Lombok Timur | Nusa Tenggara Barat
+Kabupaten Subang | Jawa Barat
+Kabupaten Karawang | Jawa Barat
+Kabupaten Indramayu | Jawa Barat
+Kabupaten Sukabumi | Jawa Barat
+Kabupaten Pamekasan | Jawa Timur
+Kota Bengkulu | Bengkulu
+Kabupaten Tasikmalaya | Jawa Barat
+Kabupaten Sumenep | Jawa Timur
+Kabupaten Serang | Banten
+Kabupaten Malang | Jawa Timur
+Kota Sorong | Papua Barat
+Kota Palopo | Sulawesi Selatan
+Kota Cirebon | Jawa Barat
+Kabupaten Bangkalan | Jawa Timur
+Kota Ternate | Maluku Utara
+Kabupaten Tegal | Jawa Tengah
+Kabupaten Lamongan | Jawa Timur
+Kabupaten Jayapura | Papua
+Kabupaten Merauke | Papua
+Kabupaten Manokwari | Papua Barat
+Kabupaten Lumajang | Jawa Timur
+Kabupaten Cilacap | Jawa Tengah
+Kota Bima | Nusa Tenggara Barat
+Kabupaten Tulungagung | Jawa Timur
+Kabupaten Sampang | Jawa Timur
+Kabupaten Probolinggo | Jawa Timur
+Kabupaten Brebes | Jawa Tengah
+Kabupaten Bone | Sulawesi Selatan
+Kota Lhokseumawe | Aceh
+Kabupaten Pandeglang | Banten
+Kabupaten Nabire | Papua
+Kabupaten Mamuju | Sulawesi Barat
+Kabupaten Lebak | Banten
+Kota Tanjungpinang | Kepulauan Riau
+Kota Gorontalo | Gorontalo
+Kota Dumai | Riau
+Kota Baubau | Sulawesi Tenggara
+Kabupaten Tuban | Jawa Timur
+Kabupaten Mimika | Papua
+Kabupaten Lombok Tengah | Nusa Tenggara Barat
+Kabupaten Badung | Bali
+Kota Pangkalpinang | Kepulauan Bangka Belitung
+Kota Gunung Sitoli | Sumatera Utara
+Kota Cilegon | Banten
+Kabupaten Situbondo | Jawa Timur
+Kabupaten Purworejo | Jawa Tengah
+Kabupaten Pidie | Aceh
+Kabupaten Pati | Jawa Tengah
+Kabupaten Ogan Komering Ilir | Sumatera Selatan
+Kabupaten Minahasa | Sulawesi Utara
+Kabupaten Majene | Sulawesi Barat
+Kabupaten Lampung Selatan | Lampung
+Kabupaten Kebumen | Jawa Tengah
+Kabupaten Buleleng | Bali
+Kota Bitung | Sulawesi Utara
+Kabupaten Sumbawa | Nusa Tenggara Barat
+Kabupaten Polewali Mandar | Sulawesi Barat
+Kabupaten Maluku Tengah | Maluku
+Kabupaten Lampung Timur | Lampung
+Kabupaten Labuhan Batu | Sumatera Utara
+Kabupaten Kotawaringin Timur | Kalimantan Tengah
+Kabupaten Biak Numfor | Papua
+Kabupaten Bengkalis | Riau
+Kabupaten Aceh Barat | Aceh
+Kota Tegal | Jawa Tengah
+Kota Tarakan | Kalimantan Utara
+Kota Pariaman | Sumatera Barat
+Kota Pare-Pare | Sulawesi Selatan
+Kabupaten Sikka | Nusa Tenggara Timur
+Kabupaten Rokan Hilir | Riau
+Kabupaten Rembang | Jawa Tengah
+Kabupaten Pinrang | Sulawesi Selatan
+Kabupaten Pacitan | Jawa Timur
+Kabupaten Maros | Sulawesi Selatan
+Kabupaten Kutai Kartanegara | Kalimantan Timur
+Kabupaten Kolaka | Sulawesi Tenggara
+Kabupaten Kendal | Jawa Tengah
+Kabupaten Halmahera Utara | Maluku Utara
+Kabupaten Fak-Fak | Papua Barat
+Kabupaten Bulukumba | Sulawesi Selatan
+Kabupaten Bireuen | Aceh
+Kabupaten Bima | Nusa Tenggara Barat
+Kabupaten Banggai | Sulawesi Tengah
+Kabupaten Aceh Besar | Aceh
+Kota Singkawang | Kalimantan Barat
+Kota Pekalongan | Jawa Tengah
+Kabupaten Wonogiri | Jawa Tengah
+Kabupaten Toli-Toli | Sulawesi Tengah
+Kabupaten Timor Tengah Utara | Nusa Tenggara Timur
+Kabupaten Tapanuli Tengah | Sumatera Utara
+Kabupaten Tabanan | Bali
+Kabupaten Poso | Sulawesi Tengah
+Kabupaten Pangkajene Kepulauan | Sulawesi Selatan
+Kabupaten Lombok Barat | Nusa Tenggara Barat
+Kabupaten Langkat | Sumatera Utara
+Kabupaten Kupang | Nusa Tenggara Timur
+Kabupaten Jeneponto | Sulawesi Selatan
+Kabupaten Ende | Nusa Tenggara Timur
+Kabupaten Barru | Sulawesi Selatan
+Kabupaten Bangka | Kepulauan Bangka Belitung
+Kabupaten Aceh Utara | Aceh
+Kota Tual | Maluku
+Kota Sibolga | Sumatera Utara
+Kabupaten Pesisir Selatan | Sumatera Barat
+Kabupaten Pesawaran | Lampung
+Kabupaten Pasaman Barat | Sumatera Barat
+Kabupaten Padang Pariaman | Sumatera Barat
+Kabupaten Nunukan | Kalimantan Utara
+Kabupaten Muna | Sulawesi Tenggara
+Kabupaten Minahasa Utara | Sulawesi Utara
+Kabupaten Mempawah | Kalimantan Barat
+Kabupaten Mandailing Natal | Sumatera Utara
+Kabupaten Konawe | Sulawesi Tenggara
+Kabupaten Ketapang | Kalimantan Barat
+Kabupaten Kepulauan Meranti | Riau
+Kabupaten Indragiri Hilir | Riau
+Kabupaten Dompu | Nusa Tenggara Barat
+Kabupaten Blitar | Jawa Timur
+Kabupaten Berau | Kalimantan Timur
+Kabupaten Bengkayang | Kalimantan Barat
+Kota Tidore Kepulauan | Maluku Utara
+Kota Bontang | Kalimantan Timur
+Kabupaten Wakatobi | Sulawesi Tenggara
+Kabupaten Trenggalek | Jawa Timur
+Kabupaten Timor Tengah Selatan | Nusa Tenggara Timur
+Kabupaten Tanggamus | Lampung
+Kabupaten Tanah Laut | Kalimantan Selatan
+Kabupaten Takalar | Sulawesi Selatan
+Kabupaten Sumba Timur | Nusa Tenggara Timur
+Kabupaten Sumba Barat Daya | Nusa Tenggara Timur
+Kabupaten Sorong | Papua Barat
+Kabupaten Sinjai | Sulawesi Selatan
+Kabupaten Seram Bagian Timur | Maluku
+Kabupaten Sambas | Kalimantan Barat
+Kabupaten Pemalang | Jawa Tengah
+Kabupaten Pekalongan | Jawa Tengah
+Kabupaten Nias Selatan | Sumatera Utara
+Kabupaten Nagekeo | Nusa Tenggara Timur
+Kabupaten Manggarai | Nusa Tenggara Timur
+Kabupaten Maluku Tenggara | Maluku
+Kabupaten Luwu | Sulawesi Selatan
+Kabupaten Lombok Utara | Nusa Tenggara Barat
+Kabupaten Lingga | Kepulauan Riau
+Kabupaten Kutai Timur | Kalimantan Timur
+Kabupaten Kotawaringin Barat | Kalimantan Tengah
+Kabupaten Kota Baru | Kalimantan Selatan
+Kabupaten Kepulauan Yapen | Papua
+Kabupaten Kepulauan Sangihe | Sulawesi Utara
+Kabupaten Karimun | Kepulauan Riau
+Kabupaten Jepara | Jawa Tengah
+Kabupaten Halmahera Selatan | Maluku Utara
+Kabupaten Gianyar | Bali
+Kabupaten Bengkulu Selatan | Bengkulu
+Kabupaten Aceh Singkil | Aceh
+Kabupaten Aceh Jaya | Aceh
+Kota Sabang | Aceh
+Kota Probolinggo | Jawa Timur
+Kabupaten Tanjung Jabung Timur | Jambi
+Kabupaten Tanah Bumbu | Kalimantan Selatan
+Kabupaten Simeulue | Aceh
+Kabupaten Pidie Jaya | Aceh
+Kabupaten Pesisir Barat | Lampung
+Kabupaten Paser | Kalimantan Timur
+Kabupaten Pangandaran | Jawa Barat
+Kabupaten Ngada | Nusa Tenggara Timur
+Kabupaten Minahasa Selatan | Sulawesi Utara
+Kabupaten Luwu Timur | Sulawesi Selatan
+Kabupaten Kepulauan Tanimbar | Maluku
+Kabupaten Kapuas | Kalimantan Tengah
+Kabupaten Jembrana | Bali
+Kabupaten Halmahera Barat | Maluku Utara
+Kabupaten Gunung Kidul | DI Yogyakarta
+Kabupaten Gorontalo | Gorontalo
+Kabupaten Flores Timur | Nusa Tenggara Timur
+Kabupaten Demak | Jawa Tengah
+Kabupaten Buton | Sulawesi Tenggara
+Kabupaten Bombana | Sulawesi Tenggara
+Kabupaten Bintan | Kepulauan Riau
+Kabupaten Belu | Nusa Tenggara Timur
+Kabupaten Belitung | Kepulauan Bangka Belitung
+Kabupaten Bantaeng | Sulawesi Selatan
+Kabupaten Alor | Nusa Tenggara Timur
+Kabupaten Agam | Sumatera Barat
+Kabupaten Aceh Timur | Aceh
+Kabupaten Aceh Selatan | Aceh
+Kabupaten Aceh Barat Daya | Aceh
+Kabupaten Tapanuli Selatan | Sumatera Utara
+Kabupaten Supiori | Papua
+Kabupaten Sumbawa Barat | Nusa Tenggara Barat
+Kabupaten Seruyan | Kalimantan Tengah
+Kabupaten Serdang Bedagai | Sumatera Utara
+Kabupaten Seram Bagian Barat | Maluku
+Kabupaten Rote-Ndao | Nusa Tenggara Timur
+Kabupaten Pulau Morotai | Maluku Utara
+Kabupaten Pohuwato | Gorontalo
+Kabupaten Penajam Paser Utara | Kalimantan Timur
+Kabupaten Pasangkayu | Sulawesi Barat
+Kabupaten Nias Barat | Sumatera Utara
+Kabupaten Nias | Sumatera Utara
+Kabupaten Natuna | Kepulauan Riau
+Kabupaten Nagan Raya | Aceh
+Kabupaten Muna Barat | Sulawesi Tenggara
+Kabupaten Muko-Muko | Bengkulu
+Kabupaten Morowali Utara | Sulawesi Tengah
+Kabupaten Morowali | Sulawesi Tengah
+Kabupaten Manggarai Barat | Nusa Tenggara Timur
+Kabupaten Malaka | Nusa Tenggara Timur
+Kabupaten Kulon Progo | DI Yogyakarta
+Kabupaten Konawe Selatan | Sulawesi Tenggara
+Kabupaten Kolaka Utara | Sulawesi Tenggara
+Kabupaten Kepulauan Talaud | Sulawesi Utara
+Kabupaten Kepulauan Sula | Maluku Utara
+Kabupaten Kepulauan Siau Tagulandang Biaro | Sulawesi Utara
+Kabupaten Kepulauan Selayar | Sulawesi Selatan
+Kabupaten Kepulauan Mentawai | Sumatera Barat
+Kabupaten Kepulauan Aru | Maluku
+Kabupaten Kepulauan Anambas | Kepulauan Riau
+Kabupaten Kaur | Bengkulu
+Kabupaten Karang Asem | Bali
+Kabupaten Kaimana | Papua Barat
+Kabupaten Gorontalo Utara | Gorontalo
+Kabupaten Buru | Maluku
+Kabupaten Buol | Sulawesi Tengah
+Kabupaten Bone Bolango | Gorontalo
+Kabupaten Bolaang Mongondow | Sulawesi Utara
+Kabupaten Boalemo | Gorontalo
+Kabupaten Bengkulu Utara | Bengkulu
+Kabupaten Batubara | Sumatera Utara
+Kabupaten Bangka Tengah | Kepulauan Bangka Belitung

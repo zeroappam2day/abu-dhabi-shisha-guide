@@ -1,0 +1,40 @@
+Kabupaten Batubara | Sumatera Utara
+Kabupaten Deli Serdang | Sumatera Utara
+Kabupaten Labuhan Batu | Sumatera Utara
+Kabupaten Langkat | Sumatera Utara
+Kabupaten Mandailing Natal | Sumatera Utara
+Kabupaten Nias | Sumatera Utara
+Kabupaten Nias Barat | Sumatera Utara
+Kabupaten Nias Selatan | Sumatera Utara
+Kabupaten Serdang Bedagai | Sumatera Utara
+Kabupaten Tapanuli Selatan | Sumatera Utara
+Kabupaten Tapanuli Tengah | Sumatera Utara
+Kota Gunung Sitoli | Sumatera Utara
+Kota Medan | Sumatera Utara
+Kota Sibolga | Sumatera Utara
+Kabupaten Bima | Nusa Tenggara Barat
+Kabupaten Dompu | Nusa Tenggara Barat
+Kabupaten Lombok Barat | Nusa Tenggara Barat
+Kabupaten Lombok Tengah | Nusa Tenggara Barat
+Kabupaten Lombok Timur | Nusa Tenggara Barat
+Kabupaten Lombok Utara | Nusa Tenggara Barat
+Kabupaten Sumbawa | Nusa Tenggara Barat
+Kabupaten Sumbawa Barat | Nusa Tenggara Barat
+Kota Bima | Nusa Tenggara Barat
+Kota Mataram | Nusa Tenggara Barat
+Kabupaten Halmahera Barat | Maluku Utara
+Kabupaten Halmahera Selatan | Maluku Utara
+Kabupaten Halmahera Utara | Maluku Utara
+Kabupaten Kepulauan Sula | Maluku Utara
+Kabupaten Pulau Morotai | Maluku Utara
+Kota Ternate | Maluku Utara
+Kota Tidore Kepulauan | Maluku Utara
+Kabupaten Lebak | Banten
+Kabupaten Pandeglang | Banten
+Kabupaten Serang | Banten
+Kabupaten Tangerang | Banten
+Kota Cilegon | Banten
+Kota Serang | Banten
+Kabupaten Bantul | DI Yogyakarta
+Kabupaten Gunung Kidul | DI Yogyakarta
+Kabupaten Kulon Progo | DI Yogyakarta

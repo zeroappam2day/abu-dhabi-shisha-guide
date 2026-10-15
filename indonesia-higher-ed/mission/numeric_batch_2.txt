@@ -1,0 +1,41 @@
+Kabupaten Brebes | Jawa Tengah
+Kabupaten Cilacap | Jawa Tengah
+Kabupaten Demak | Jawa Tengah
+Kabupaten Jepara | Jawa Tengah
+Kabupaten Kebumen | Jawa Tengah
+Kabupaten Kendal | Jawa Tengah
+Kabupaten Pati | Jawa Tengah
+Kabupaten Pekalongan | Jawa Tengah
+Kabupaten Pemalang | Jawa Tengah
+Kabupaten Purworejo | Jawa Tengah
+Kabupaten Rembang | Jawa Tengah
+Kabupaten Tegal | Jawa Tengah
+Kabupaten Wonogiri | Jawa Tengah
+Kota Pekalongan | Jawa Tengah
+Kota Semarang | Jawa Tengah
+Kota Tegal | Jawa Tengah
+Kabupaten Bolaang Mongondow | Sulawesi Utara
+Kabupaten Kepulauan Sangihe | Sulawesi Utara
+Kabupaten Kepulauan Siau Tagulandang Biaro | Sulawesi Utara
+Kabupaten Kepulauan Talaud | Sulawesi Utara
+Kabupaten Minahasa | Sulawesi Utara
+Kabupaten Minahasa Selatan | Sulawesi Utara
+Kabupaten Minahasa Utara | Sulawesi Utara
+Kota Bitung | Sulawesi Utara
+Kota Manado | Sulawesi Utara
+Kabupaten Berau | Kalimantan Timur
+Kabupaten Kutai Kartanegara | Kalimantan Timur
+Kabupaten Kutai Timur | Kalimantan Timur
+Kabupaten Paser | Kalimantan Timur
+Kabupaten Penajam Paser Utara | Kalimantan Timur
+Kota Balikpapan | Kalimantan Timur
+Kota Bontang | Kalimantan Timur
+Kabupaten Fak-Fak | Papua Barat
+Kabupaten Kaimana | Papua Barat
+Kabupaten Manokwari | Papua Barat
+Kabupaten Sorong | Papua Barat
+Kota Sorong | Papua Barat
+Kabupaten Kapuas | Kalimantan Tengah
+Kabupaten Kotawaringin Barat | Kalimantan Tengah
+Kabupaten Kotawaringin Timur | Kalimantan Tengah
+Kabupaten Seruyan | Kalimantan Tengah
