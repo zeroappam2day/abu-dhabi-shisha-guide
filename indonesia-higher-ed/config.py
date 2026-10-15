@@ -110,8 +110,8 @@ SPOTCHECK_FILE = ROOT / "spotcheck_web.csv"   # second source: city, web_beach (
 
 # ---- Stage 5: deliver ----------------------------------------------------------
 WORKBOOK = OUTPUT / "indonesia_higher_ed.xlsx"
-PIVOT_SHEET = "Pivot"                  # real Excel pivot: rows Province > City, columns Beach, values count of Name
-PIVOT_ROWS = ["Province", "City"]
+PIVOT_SHEET = "Pivot"                  # real Excel pivot: rows Province > City/Regency, columns Beach, values count of Name
+PIVOT_ROWS = ["Province", "City/Regency"]
 PIVOT_COLUMNS = ["Beach"]
 PIVOT_COUNT = "Name"
 PIVOT_FILTERS = ["Type", "Offers S1/D3/D4"]   # page filters on the pivot

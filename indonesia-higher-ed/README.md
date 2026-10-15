@@ -1,8 +1,8 @@
 # Indonesia higher-education workbook
 
 Builds `output/indonesia_higher_ed.xlsx` with three sheets:
-- **Institutions:** NPSN, name, type, ownership, address, city, province, levels offered, offers S1/D3/D4, typical student age, beach, duplicate, city source.
-- **Summary:** city, province, institution count, beach, number offering S1/D3/D4.
+- **Institutions:** NPSN, name, type, ownership, address, city/regency, province, levels offered, offers S1/D3/D4, typical student age, beach, duplicate, city source.
+- **Summary:** city/regency, province, institution count, beach, number offering S1/D3/D4.
 - **Pivot:** a real, refreshable Excel pivot table. Rows are province, then city; columns are beach; values are the count of institutions; filters are type and offers S1/D3/D4.
 
 It covers every registered higher-education institution: all six types (Universitas, Institut, Sekolah Tinggi, Politeknik, Akademi and Akademi Komunitas), 4,303 rows. Nothing is dropped by age. The "Offers S1/D3/D4" and "Typical student age" columns let you filter instead (user decision; set `AGE_FILTER = True` in config to drop instead). Every stage ends with a gate. If a gate fails, the stage writes `data/gate_sN.txt` and exits, and the workbook is not produced.
@@ -48,3 +48,6 @@ It covers every registered higher-education institution: all six types (Universi
   - Dropped institutions with their reason: `s2_all_classified.csv`.
   - Beach evidence per city, including its basis (OSM or web): `s4_cities.csv`.
   - Spot-check results: `s4_spotcheck.csv`.
+
+## Level of the beach test
+"City/Regency" is the kabupaten/kota, Indonesia's second-level administrative unit. A kabupaten (regency) is made up of towns and villages, so institutions in towns and villages are included under their regency. The beach flag is tested per city/regency (user decision). A town-level test was declined because the source gives the town (kecamatan) for only 1,097 of the 4,303 institutions.

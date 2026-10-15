@@ -6,9 +6,9 @@ from openpyxl import Workbook, load_workbook
 import config as C
 from common import gate, read_rows
 
-INST_COLS = ["NPSN", "Name", "Type", "Ownership", "Address", "City", "Province", "Levels offered",
+INST_COLS = ["NPSN", "Name", "Type", "Ownership", "Address", "City/Regency", "Province", "Levels offered",
              "Offers S1/D3/D4", "Typical student age", "Beach", "Duplicate", "City source"]
-SUM_COLS = ["City", "Province", "Institution count", "Beach", "Offering S1/D3/D4"]
+SUM_COLS = ["City/Regency", "Province", "Institution count", "Beach", "Offering S1/D3/D4"]
 
 
 def main():
