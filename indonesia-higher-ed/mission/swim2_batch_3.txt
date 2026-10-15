@@ -1,0 +1,20 @@
+Kabupaten Maluku Tenggara | Maluku | known beaches: Pasir Panjang
+Kabupaten Luwu | Sulawesi Selatan | known beaches: Pantai Ponnori
+Kabupaten Lombok Utara | Nusa Tenggara Barat | known beaches: Pantai Kecinan; Pantai Klui; Pantai Lendang Luar
+Kabupaten Lingga | Kepulauan Riau | known beaches: Pantai Benan
+Kabupaten Kutai Timur | Kalimantan Timur | known beaches: Pantai Kenyamukan; Pantai Sekerat; Pantai Teluk Lombok
+Kabupaten Kotawaringin Barat | Kalimantan Tengah | known beaches: Pantai Kubu
+Kabupaten Kota Baru | Kalimantan Selatan | known beaches: Pantai Gedambaan
+Kabupaten Kepulauan Yapen | Papua | known beaches: Pantai Cinta Tua; Pantai Mainggap; Pantai Mariadey
+Kabupaten Kepulauan Sangihe | Sulawesi Utara | known beaches: Pantai Kutu; Pantai Sapaeng
+Kabupaten Karimun | Kepulauan Riau | known beaches: Pelawan beach
+Kabupaten Halmahera Selatan | Maluku Utara | known beaches: Pantai Tawa
+Kabupaten Bengkulu Selatan | Bengkulu | known beaches: Pantai Pasar Bawah
+Kabupaten Aceh Singkil | Aceh | known beaches: Pantai Cemara Indah
+Kabupaten Aceh Jaya | Aceh | known beaches: Pantai Pasie Luah
+Kota Sabang | Aceh | known beaches: Gapang Beach; Lhong Angen; Long Beach
+Kabupaten Tanjung Jabung Timur | Jambi | known beaches: Pantai Cemara
+Kabupaten Tanah Bumbu | Kalimantan Selatan | known beaches: Pantai Angsana; Pantai Pagatan; Pantai Setarap
+Kabupaten Simeulue | Aceh | known beaches: Pantai Alus-alus
+Kabupaten Pidie Jaya | Aceh | known beaches: Pantai Wisata Islami (Pantai Kuthang)
+Kabupaten Paser | Kalimantan Timur | known beaches: Pantai Pasir Mayang

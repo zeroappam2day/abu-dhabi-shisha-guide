@@ -1,0 +1,20 @@
+Kabupaten Tabanan | Bali | known beaches: Pantai Batu Lumbang; Pantai Kedungu
+Kabupaten Pesawaran | Lampung | known beaches: Pantai Mutun
+Kabupaten Blitar | Jawa Timur | known beaches: Gayasan; Pantai Gayasan; Pantai Gemuling
+Kabupaten Trenggalek | Jawa Timur | known beaches: Pantai Cengkrong; Pantai Ngrembang; Pantai Pelang
+Kabupaten Tanggamus | Lampung | known beaches: Pantai Terbaya
+Kabupaten Pemalang | Jawa Tengah | known beaches: Pantai Widuri
+Kabupaten Pekalongan | Jawa Tengah | known beaches: Pantai Wonokerto
+Kabupaten Jepara | Jawa Tengah | known beaches: Kumloco Beach; Pantai Alang
+Kabupaten Gianyar | Bali | known beaches: Pantai Lebih; Pantai Masceti; Pantai Pering
+Kota Probolinggo | Jawa Timur | known beaches: Pantai Permata
+Kabupaten Pesisir Barat | Lampung | known beaches: Pantai Tanjung Setia
+Kabupaten Pangandaran | Jawa Barat | known beaches: Pantai Barat Pangandaran; Pantai Pangandaran
+Kabupaten Jembrana | Bali | known beaches: Medewi Beach
+Kabupaten Gunung Kidul | DI Yogyakarta | known beaches: Ngobaran; Ngrenehan
+Kabupaten Demak | Jawa Tengah | known beaches: Pantai Morosari
+Kabupaten Kulon Progo | DI Yogyakarta | known beaches: Pantai Glagah; Pantai Trisik
+Kabupaten Karang Asem | Bali | known beaches: Blue Lagoon; Padang Bai Beach; Pantai Jasri
+Kabupaten Tapanuli Tengah | Sumatera Utara | known beaches: Pantai Pandan
+Kabupaten Poso | Sulawesi Tengah | known beaches: Pantai Imbo
+Kabupaten Pangkajene Kepulauan | Sulawesi Selatan | known beaches: Pulau Kapoposang
