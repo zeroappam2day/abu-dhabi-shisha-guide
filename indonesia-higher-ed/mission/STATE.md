@@ -1,5 +1,5 @@
 # Mission: append safety, wage, unemployment, poverty to the 260 beach places
-Stage: 4 Fill residue (numeric merged; safety 20/260; next: safety batches 1-12 + numeric gaps)   Updated: 2026-10-15
+Stage: 6 Deliver (done)   Updated: 2026-10-15
 
 ## Outcome (from brief)
 - For: user comparing beach places for students aged 17-25. Deliverable: new "Beach shortlist" sheet, 260 rows.
@@ -26,6 +26,10 @@ Stage: 4 Fill residue (numeric merged; safety 20/260; next: safety batches 1-12 
 
 | 9 | Fill | Numeric merged (shortlist_numeric.csv): UMK 260/260 (128 UMP), poverty 254/260 (69 whole-number, decimals truncated), TPT 246/260 (period as published "Desember 2025"), avg wage 0/260 (not published at regency level) | batches 0-5 + pilot |
 | 10 | Fill | Safety batch 0 (20 largest): 6 Medium, 5 Low, 9 Insufficient; evidence is local news/police (forums not indexed) | safety_result_0.csv |
+
+| 11 | Fill | Safety stopped at 60 researched places; 200 "Not researched" | user |
+| 12 | Verify | Spot-check seed 3001: numeric 20/20; safety 9/20 (5/5 where both rated, within one band; rest coverage) | shortlist_spotcheck.csv |
+| 13 | Verify | Adopt verifier's ratings for 10 places it rated; "Insufficient evidence" relabelled "No rating: <2 dated sources found" | user |
 
 ## Budget ledger
 | Stage | Planned searches | Planned turns | Actual |

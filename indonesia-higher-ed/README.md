@@ -1,8 +1,9 @@
 # Indonesia higher-education workbook
 
-Builds `output/indonesia_higher_ed.xlsx` with three sheets:
+Builds `output/indonesia_higher_ed.xlsx` with four sheets:
 - **Institutions:** NPSN, name, type, ownership, address, city/regency, province, levels offered, offers S1/D3/D4, typical student age, beach, duplicate, city source.
 - **Summary:** city/regency, province, institution count, beach, number offering S1/D3/D4.
+- **Beach shortlist:** one row per beach city/regency (260): safety (walking around) with evidence, UMK 2026, average net wage, unemployment rate, poverty rate, each with period and source URLs.
 - **Pivot:** a real, refreshable Excel pivot table. Rows are province, then city; columns are beach; values are the count of institutions; filters are type and offers S1/D3/D4.
 
 It covers every registered higher-education institution: all six types (Universitas, Institut, Sekolah Tinggi, Politeknik, Akademi and Akademi Komunitas), 4,303 rows. Nothing is dropped by age. The "Offers S1/D3/D4" and "Typical student age" columns let you filter instead (user decision; set `AGE_FILTER = True` in config to drop instead). Every stage ends with a gate. If a gate fails, the stage writes `data/gate_sN.txt` and exits, and the workbook is not produced.
@@ -51,3 +52,16 @@ It covers every registered higher-education institution: all six types (Universi
 
 ## Level of the beach test
 "City/Regency" is the kabupaten/kota, Indonesia's second-level administrative unit. A kabupaten (regency) is made up of towns and villages, so institutions in towns and villages are included under their regency. The beach flag is tested per city/regency (user decision). A town-level test was declined because the source gives the town (kecamatan) for only 1,097 of the 4,303 institutions.
+
+## Beach shortlist metrics (web-researched)
+| Column | Source / rule | Coverage |
+|---|---|---|
+| UMK 2026 | Governor decrees via news/GoodStats; where a regency sets none, the province UMP (labelled "UMP") | 260/260 (128 UMP) |
+| Average net wage | BPS publishes it only nationally/provincially | "Not published at regency level" for all 260 |
+| Unemployment rate | BPS TPT, all ages, 2025, via Databoks/GoodStats mirrors (bps.go.id is firewalled); period as published ("Desember 2025") | 251/260; 9 "Unverified" |
+| Poverty rate | BPS P0 2025 via mirrors; 69 values exist only as whole numbers from provincial lists (decimals truncated, labelled in Notes) | 258/260; 2 "Unverified" |
+| Safety | High/Medium/Low from >=2 independent local news, police or forum sources dated 15 Apr - 15 Oct 2026; forum-only evidence failed its pilot (0/5) | 60 largest places researched; 200 "Not researched" (user decision); 25 of the 60 "No rating: <2 dated sources found" |
+
+**Spot-checks** (seed 3001, independent agents given no prior values): numeric 20/20 rows agree (poverty 17/17, unemployment 19/19, UMK 19/19 where both found a value). Safety 9/20: all 5 places both sides rated agree within one band; 11 disagreements were "insufficient" vs a rating found with deeper search. The verifier's evidence-backed ratings were adopted for 10 of them (user decision); record in `shortlist_spotcheck.csv`.
+
+**Caveats:** wage and unemployment are all-ages regency figures, not 17-25-specific (user decision: regency-level data only). The safety scale is news-based, so it cannot show "High" (none found).
