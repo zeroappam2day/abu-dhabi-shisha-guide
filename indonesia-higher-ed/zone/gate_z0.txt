@@ -1,0 +1,6 @@
+PASS  rows  [70 vs 70]
+PASS  zones  [{'Bali': 7, 'Java': 57, 'Lampung': 6}]
+PASS  keys match workbook exactly  [70 unique]
+PASS  swim baseline  [{'Yes': 56, 'No': 7, 'Unverified': 7}]
+PASS  web tools  [WebSearch ok; WebFetch opened 2/3 sample URLs (beritajatim 403 -> curl with UA = 200)]
+PASS  baseline intact  [148 files match]
