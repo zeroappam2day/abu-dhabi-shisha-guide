@@ -54,6 +54,8 @@ th{position:sticky;top:0;background:var(--panel);text-align:left;font-weight:600
 th:hover{color:var(--ink)}th.sorted{color:var(--accent)}th .arrow{font-size:10px;margin-left:4px}
 td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}td.num{text-align:right;font-variant-numeric:tabular-nums}
 tr.row{cursor:pointer}tr.row:hover td{background:var(--accent-soft)}tr.row td:first-child{white-space:nowrap}
+.copy{margin-left:6px;padding:2px 4px;border:1px solid transparent;background:none;color:var(--muted);vertical-align:-2px;line-height:0;border-radius:4px}
+.copy:hover{color:var(--accent);border-color:var(--line)}.copy.ok{color:var(--high)}
 .caret{display:inline-block;width:14px;color:var(--muted);transition:transform .15s}tr.open .caret{transform:rotate(90deg)}
 .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;white-space:nowrap}
 .b-Low{background:var(--low-bg);color:var(--low)}.b-Medium{background:var(--med-bg);color:var(--med)}.b-High{background:var(--high-bg);color:var(--high)}.b-none{background:var(--none-bg);color:var(--none)}
@@ -96,8 +98,12 @@ $("hdr").onclick=e=>{const th=e.target.closest("th");if(!th)return;const k=th.da
 $("expand").onclick=()=>{rows().forEach(d=>open.add(d["City/Regency"]+"|"+d.Province));render()};
 $("collapse").onclick=()=>{open.clear();render()};
 $("reset").onclick=()=>{["q","prov","saf","umk"].forEach(id=>$(id).value="");open.clear();sortKey="Institution count";sortDir=-1;render()};
-$("body").onclick=e=>{if(e.target.closest("a,details"))return;const tr=e.target.closest("tr.row");if(!tr)return;const k=tr.dataset.k;open.has(k)?open.delete(k):open.add(k);render()};
+$("body").onclick=e=>{const cb=e.target.closest("button.copy");if(cb){copyText(cb.dataset.copy,cb);return}if(e.target.closest("a,details"))return;const tr=e.target.closest("tr.row");if(!tr)return;const k=tr.dataset.k;open.has(k)?open.delete(k):open.add(k);render()};
 render()}
+function copyText(t,btn){const done=()=>{btn.classList.add("ok");btn.title="Copied";setTimeout(()=>{btn.classList.remove("ok");btn.title="Copy name"},1200)};
+const fallback=()=>{const a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();
+try{document.execCommand("copy");done()}catch(e){}a.remove()};
+if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(done,fallback);else fallback()}
 function rows(){const q=$("q").value.trim().toLowerCase(),p=$("prov").value,s=$("saf").value,u=$("umk").value;
 return DATA.filter(d=>(!p||d.Province===p)&&(!s||d["Safety (walking around)"]===s)&&(!u||d["UMK basis"]===u)&&
 (!q||(d["City/Regency"]+" "+d.Province+" "+d.institutions.map(i=>i[0]).join(" ")).toLowerCase().includes(q)))
@@ -114,7 +120,7 @@ return `<div class="grid"><div class="box"><h3>Safety evidence</h3><p>${linkify(
 function render(){const r=rows();
 document.querySelectorAll("#hdr th").forEach(th=>{const on=th.dataset.k===sortKey;th.classList.toggle("sorted",on);th.querySelector(".arrow").textContent=on?(sortDir>0?"▲":"▼"):""});
 $("body").innerHTML=r.map(d=>{const k=d["City/Regency"]+"|"+d.Province,o=open.has(k);
-return `<tr class="row${o?" open":""}" data-k="${esc(k)}"><td><span class="caret">▶</span>${esc(d["City/Regency"])}</td><td>${esc(d.Province)}</td>
+return `<tr class="row${o?" open":""}" data-k="${esc(k)}"><td><span class="caret">▶</span>${esc(d["City/Regency"])}<button class="copy" data-copy="${esc(d["City/Regency"])}" title="Copy name" aria-label="Copy ${esc(d["City/Regency"])}"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td>${esc(d.Province)}</td>
 <td class="num">${d["Institution count"]}</td><td class="num">${d["Offering S1/D3/D4"]}</td><td>${badge(d["Safety (walking around)"])}</td>
 <td class="num">${fmt(d["UMK 2026 (IDR/month)"],"UMK")}</td><td class="num">${fmt(d["Unemployment rate % (all ages)"],"%")}</td><td class="num">${typeof d["Poverty rate %"]==="number"&&/decimals truncated/.test(d.Notes)?d["Poverty rate %"]+' <span class="muted" title="Source lists only whole numbers; true value is up to 1 point higher">(whole no.)</span>':fmt(d["Poverty rate %"],"%")}</td></tr>`+
 (o?`<tr class="detail"><td colspan="8">${detail(d)}</td></tr>`:"")}).join("");
