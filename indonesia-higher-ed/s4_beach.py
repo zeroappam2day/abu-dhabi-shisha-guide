@@ -4,6 +4,7 @@ Works offline on the OSM Indonesia extract (Overpass is not required).
 Beach = named natural=beach, or a named "Pantai ..." tourism attraction/viewpoint/picnic site/beach resort.
 Confirmation rule: the beach is named, lies within COASTLINE_MAX_M of natural=coastline
 (sea, not lake/river) and its surface is not in EXCLUDED_SURFACES.
+Coastal cities with no OSM beach are decided by web verdicts (BEACH_WEB_FILE), because OSM has gaps there.
 Spot-check: SPOTCHECK_SIZE seeded-random cities compared with web-verified verdicts (SPOTCHECK_FILE,
 one evidence URL per city). GeoNames (99 beach points) and Wikidata (214) were too sparse to serve.
 """
@@ -136,13 +137,21 @@ def sea_beaches(feats):
             and len(coast.query(b["geom"], predicate="dwithin", distance=reach))]
 
 
+def read_csv(path):
+    if not path.exists():
+        return {}
+    with open(path, newline="", encoding="utf-8") as f:
+        return {(r["city"], r["province"]): r for r in csv.DictReader(f)}
+
+
+def url_of(evidence):
+    return next((t for t in reversed(evidence.split()) if t.startswith("http")), "")
+
+
 def spot_check(cities):
     """Compare a seeded-random sample with web-verified verdicts recorded in SPOTCHECK_FILE."""
     sample = random.Random(C.SPOTCHECK_SEED).sample(cities, min(C.SPOTCHECK_SIZE, len(cities)))
-    web = {}
-    if C.SPOTCHECK_FILE.exists():
-        with open(C.SPOTCHECK_FILE, newline="", encoding="utf-8") as f:
-            web = {(r["city"], r["province"]): r for r in csv.DictReader(f)}
+    web = read_csv(C.SPOTCHECK_FILE)
     for c in sample:
         w = web.get((c["city"], c["province"]), {})
         c.update(web_beach=w.get("web_beach", ""), web_evidence=w.get("evidence", ""),
@@ -156,13 +165,16 @@ def main():
     rows, feats = read_rows("s3_institutions.csv"), load_features()
     areas = city_areas(feats["admin"])
     beaches = sea_beaches(feats)
+    coast = STRtree([c["geom"] for c in feats["coast"]])
+    beach_web = read_csv(C.BEACH_WEB_FILE)
     btree = STRtree([b["geom"].representative_point() for b in beaches])
     pairs = sorted({(r["city"], r["province"]) for r in rows})
     cities, unmatched = [], []
     for city, province in pairs:
         if city == C.UNKNOWN_CITY:  # user decision: kept, but no boundary to test
             cities.append({"city": city, "province": province, "osm_relation": "", "beach": "unknown",
-                           "beach_names": "", "beach_source": "", "boundary_note": "no city known"})
+                           "beach_names": "", "beach_source": "", "coastal": "", "basis": "no city known",
+                           "boundary_note": ""})
             continue
         area = match_area(city, province, areas)
         if area is None:
@@ -170,22 +182,30 @@ def main():
             continue
         inside = sorted((beaches[i] for i in btree.query(area[3], predicate="contains")),
                         key=lambda b: b["tags"]["name"])
-        cities.append({
-            "city": city, "province": province, "osm_relation": area[0],
+        coastal = len(coast.query(area[3], predicate="intersects")) > 0
+        row = {
+            "city": city, "province": province, "osm_relation": area[0], "coastal": "yes" if coastal else "no",
             "beach": "yes" if inside else "no",
             "beach_names": "; ".join(dict.fromkeys(b["tags"]["name"] for b in inside[:C.BEACH_NAMES_LISTED])),
             "beach_source": f"https://www.openstreetmap.org/{inside[0]['osm'][0]}/{inside[0]['osm'][1]}" if inside else "",
+            "basis": "osm" if inside else ("osm: no sea coast" if not coastal else "unverified coastal"),
             "boundary_note": "approximate: OSM ring not closed, outline rebuilt" if area[5] else "",
-        })
+        }
+        w = beach_web.get((city, province))
+        if not inside and coastal and w and w.get("verified") == "yes":  # OSM has coastal gaps: web decides
+            row.update(beach=w["web_beach"], beach_names=w.get("beach_name", ""),
+                       beach_source=url_of(w["evidence"]), basis=f"web: {w['evidence']}")
+        cities.append(row)
 
-    write_rows("s4_cities.csv", cities, ["city", "province", "osm_relation", "beach", "beach_names", "beach_source",
-                                         "boundary_note"])
+    write_rows("s4_cities.csv", cities, ["city", "province", "osm_relation", "coastal", "beach", "beach_names",
+                                         "beach_source", "basis", "boundary_note"])
     stats = (f"{len(areas)} OSM city boundaries, {len(feats['beach'])} named beaches, {len(beaches)} confirmed sea, "
              f"{len(feats['coast'])} coastline ways, {len(feats['broken'])} broken geometries skipped")
     if unmatched:  # no spot-check on an incomplete set
         gate(4, [("100% of cities classified", False,
                   f"{len(unmatched)} of {len(pairs)} unmatched to an OSM boundary "
                   f"(add to CITY_ALIASES or OSM_RELATION_OVERRIDES): {unmatched}; {stats}")])
+    unverified = [f"{c['city']}|{c['province']}" for c in cities if c["basis"] == "unverified coastal"]
     yes_missing = [c["city"] for c in cities if c["beach"] == "yes" and not (c["beach_names"] and c["beach_source"])]
     sample = spot_check([c for c in cities if c["osm_relation"]])
     agree = sum(c["agree"] == "yes" for c in sample)
@@ -195,6 +215,9 @@ def main():
          f"{len(cities)} cities, {sum(c['beach'] == 'yes' for c in cities)} yes, "
          f"{sum(c['beach'] == 'unknown' for c in cities)} unknown (user-approved '{C.UNKNOWN_CITY}'); {stats}"),
         ("every yes lists a named beach and a source", not yes_missing, f"missing: {yes_missing}"),
+        (f"every coastal city without an OSM beach has a web verdict in {C.BEACH_WEB_FILE.name}", not unverified,
+         f"{len(unverified)} unverified: {unverified[:30]}; "
+         f"{sum(c['basis'].startswith('web') for c in cities)} decided by web"),
         (f"spot-check sample all verified in {C.SPOTCHECK_FILE.name}", not todo, f"not yet verified: {todo}"),
         (f"spot-check vs web: >= {C.SPOTCHECK_MIN_AGREE}/{len(sample)} agree", agree >= C.SPOTCHECK_MIN_AGREE,
          f"{agree} agree; disagreements: {[(c['city'], c['beach'], c['web_beach']) for c in sample if c['agree'] == 'no']}"),

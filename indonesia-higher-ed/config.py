@@ -69,6 +69,10 @@ CITY_ALIASES = {                       # cleaned source name -> current official
     "Kota Padang Sidempuan": "Kota Padangsidimpuan",
 }
 
+CITY_PROVINCE_FIXES = {                # city listed under two provinces in the source -> its current province
+    "Kota Tarakan": "Kalimantan Utara",   # Kalimantan Utara split from Kalimantan Timur in 2012
+}
+
 # ---- Stage 4: beach ----------------------------------------------------------
 OSM_PBF_URL = "https://download.openstreetmap.fr/extracts/asia/indonesia-latest.osm.pbf"
 OSM_ADMIN_LEVEL_CITY = "5"             # Indonesia: 4 = province, 5 = kabupaten/kota
@@ -88,7 +92,8 @@ BEACH_LEISURE_VALUES = {"beach_resort"}
 BEACH_NAMES_LISTED = 3
 SPOTCHECK_SIZE = 20
 SPOTCHECK_MIN_AGREE = 19
-SPOTCHECK_SEED = 2025
+SPOTCHECK_SEED = 2026                  # fresh sample after the web pass (seed 2025 gave 13/20 on OSM alone)
+BEACH_WEB_FILE = ROOT / "beach_web.csv"   # web verdicts for coastal cities OSM marks "no" (OSM has gaps there)
 SPOTCHECK_FILE = ROOT / "spotcheck_web.csv"   # second source: city, web_beach (yes/no), evidence (URL + named beach)
 
 # ---- Stage 5: deliver ----------------------------------------------------------
