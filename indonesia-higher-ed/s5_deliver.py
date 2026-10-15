@@ -56,6 +56,8 @@ def main():
         ("shortlist has one row per beach city", len(short) == n_beach, f"{len(short)} vs {n_beach}"),
         ("safety values in allowed domain", all(r[4] in C.SAFETY_VALUES for r in short),
          f"bad: {sorted({r[4] for r in short} - C.SAFETY_VALUES)}"),
+        ("swim values in allowed domain", all(r[15] in C.SWIM_VALUES for r in short),
+         f"bad: {sorted({r[15] for r in short} - C.SWIM_VALUES)}"),
         ("every shortlist city has numeric research", not any(short_problems.values()),
          f"{ {k: len(v) for k, v in short_problems.items()} } e.g. {sum(short_problems.values(), [])[:10]}"),
     ])

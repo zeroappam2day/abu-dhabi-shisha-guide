@@ -114,12 +114,16 @@ def test_end_to_end(monkeypatch):
                 "unemployment_period", "unemployment_src", "umk_2026_idr", "umk_src", "avg_wage_idr", "avg_wage_src",
                 "notes"])
     write_rows("saf.csv", [], ["city", "province", "safety", "n_sources", "evidence"])
+    monkeypatch.setattr(C, "SHORTLIST_SWIM_FILE", C.DATA / "swim.csv")
+    write_rows("swim.csv", [{"city": "Kabupaten Badung", "province": "Bali", "swim_sand_beach": "yes",
+                             "beach_name": "Pantai Kuta", "evidence": "sand, swimming - https://x/s"}],
+               ["city", "province", "swim_sand_beach", "beach_name", "evidence"])
     s5_deliver.main()
     wb = load_workbook(C.WORKBOOK)
     assert wb.sheetnames == ["Institutions", "Summary", C.SHORTLIST_SHEET]
     short = list(wb[C.SHORTLIST_SHEET].iter_rows(min_row=2, values_only=True))[0]
     assert short[4] == C.NOT_RESEARCHED and short[6] == 3500000 and short[9] == C.UNVERIFIED and short[11] == 3.5
-    assert short[8] == C.NOT_AT_REGENCY
+    assert short[8] == C.NOT_AT_REGENCY and short[15] == "Yes" and short[16].startswith("Pantai Kuta: ")
     assert wb["Institutions"].max_row - 1 == len(rows)
     assert list(wb["Summary"].iter_rows(min_row=2, values_only=True)) == [("Kabupaten Badung", "Bali", len(rows), "yes", len(rows) - 2)]
 

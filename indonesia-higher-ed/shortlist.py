@@ -6,7 +6,7 @@ import config as C
 COLS = ["City/Regency", "Province", "Institution count", "Offering S1/D3/D4", "Safety (walking around)",
         "Safety evidence", "UMK 2026 (IDR/month)", "UMK basis", "Average net wage (IDR/month, all ages)",
         "Unemployment rate % (all ages)", "Unemployment period", "Poverty rate %", "Poverty period", "Sources",
-        "Notes"]
+        "Notes", "Swimmable sand beach", "Swim beach evidence"]
 
 
 def _read(path):
@@ -23,7 +23,7 @@ def _val(value, src):
 
 def build(counts, under, beach):
     """Return (rows, problems). Missing evidence is labelled, never invented."""
-    num, saf = _read(C.SHORTLIST_NUMERIC_FILE), _read(C.SHORTLIST_SAFETY_FILE)
+    num, saf, swim = _read(C.SHORTLIST_NUMERIC_FILE), _read(C.SHORTLIST_SAFETY_FILE), _read(C.SHORTLIST_SWIM_FILE)
     rows, problems = [], {"no numeric row": []}
     for (city, prov), n in sorted(counts.items()):
         if beach.get((city, prov)) != "yes":
@@ -39,6 +39,13 @@ def build(counts, under, beach):
         tpt = _val(m.get("unemployment_pct", ""), m.get("unemployment_src", ""))
         p0 = _val(m.get("poverty_pct", ""), m.get("poverty_src", ""))
         notes = m.get("notes", "")
+        w = swim.get((city, prov))
+        if w is None:  # not yet researched
+            swim_val = swim_ev = C.NOT_RESEARCHED
+        else:
+            sourced = "http" in w["evidence"] and not w["evidence"].startswith("UNVERIFIED")
+            swim_val = C.SWIM_LABELS.get(w["swim_sand_beach"], C.UNVERIFIED) if sourced else C.UNVERIFIED
+            swim_ev = f'{w["beach_name"]}: {w["evidence"]}' if w["beach_name"] not in ("", "-") else w["evidence"]
         srcs = "; ".join(dict.fromkeys(u for u in (m.get("poverty_src", ""), m.get("unemployment_src", ""),
                                                      m.get("umk_src", ""), m.get("avg_wage_src", ""))
                                        if u.startswith("http")))
@@ -50,6 +57,6 @@ def build(counts, under, beach):
             int(float(wage)) if wage else C.NOT_AT_REGENCY,
             float(tpt) if tpt else C.UNVERIFIED, m.get("unemployment_period") or C.UNVERIFIED,
             float(p0) if p0 else C.UNVERIFIED, m.get("poverty_period") or C.UNVERIFIED,
-            srcs or C.UNVERIFIED, notes or "-",
+            srcs or C.UNVERIFIED, notes or "-", swim_val, swim_ev or C.UNVERIFIED,
         ])
     return rows, problems

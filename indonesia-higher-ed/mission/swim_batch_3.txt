@@ -1,0 +1,20 @@
+Kabupaten Pandeglang | Banten | known beaches: Pantai
+Kabupaten Nabire | Papua | known beaches: Pantai Gedo
+Kabupaten Mamuju | Sulawesi Barat | known beaches: Pantai Manakarra
+Kabupaten Lebak | Banten | known beaches: Cibareno Beach - Banten; Pantai Cihara; Pantai Legon Pari
+Kota Tanjungpinang | Kepulauan Riau | known beaches: Pantai Tanjung Siambang
+Kota Gorontalo | Gorontalo | known beaches: Pantai Tamendao
+Kota Dumai | Riau | known beaches: Pantai Purnama
+Kota Baubau | Sulawesi Tenggara | known beaches: Pantai Lakeba; Pantai Nirwana; pantai kamali
+Kabupaten Tuban | Jawa Timur | known beaches: Pantai Aladdin; Pantai Cemara; Pantai Mangrove Center Tuban
+Kabupaten Mimika | Papua | known beaches: Pantai Kampus Biru
+Kabupaten Lombok Tengah | Nusa Tenggara Barat | known beaches: Mawun beach; Pantai Aan; Pantai Are Guling
+Kabupaten Badung | Bali | known beaches: Batu Barak Beach; Bingin Beach; Dreamland Beach
+Kota Pangkalpinang | Kepulauan Bangka Belitung | known beaches: Pantai Pasir Padi
+Kota Gunung Sitoli | Sumatera Utara | known beaches: Pantai Laowomaru
+Kota Cilegon | Banten | known beaches: Merak Beach; Pantai Mabak Cilegon
+Kabupaten Situbondo | Jawa Timur | known beaches: Bama Beach; Candra hiddenBeach; Pantai Lempuyang
+Kabupaten Purworejo | Jawa Tengah | known beaches: Pantai Dewaruci Jatimalang
+Kabupaten Pidie | Aceh | known beaches: Pantai Mantak Tari
+Kabupaten Pati | Jawa Tengah | known beaches: Pantai Banyutowo
+Kabupaten Ogan Komering Ilir | Sumatera Selatan | known beaches: Pulau Maspari

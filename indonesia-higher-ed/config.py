@@ -119,6 +119,9 @@ SAFETY_VALUES = {"High", "Medium", "Low", NO_SAFETY_RATING, "Not researched"}
 NOT_RESEARCHED = "Not researched"       # user decision: safety researched for the 60 largest beach places only
 SHORTLIST_SPOT_SEED = 3001             # seeded samples for the independent shortlist spot-check
 SHORTLIST_SPOT_FILE = ROOT / "shortlist_spotcheck.csv"
+SHORTLIST_SWIM_FILE = ROOT / "shortlist_swim.csv"         # swimmable sand (not pebble/rock/mud) sea beach per city + URL
+SWIM_LABELS = {"yes": "Yes", "no": "No"}                   # anything else, or no URL, -> UNVERIFIED
+SWIM_VALUES = {"Yes", "No", UNVERIFIED, NOT_RESEARCHED}
 
 # ---- Stage 5: deliver ----------------------------------------------------------
 WORKBOOK = OUTPUT / "indonesia_higher_ed.xlsx"

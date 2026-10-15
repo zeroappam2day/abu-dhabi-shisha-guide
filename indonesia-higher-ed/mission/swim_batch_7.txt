@@ -1,0 +1,20 @@
+Kabupaten Minahasa Utara | Sulawesi Utara | known beaches: Pantai Paal; Pantai Pulisan
+Kabupaten Mempawah | Kalimantan Barat | known beaches: Pantai Kijing
+Kabupaten Mandailing Natal | Sumatera Utara | known beaches: Pantai Natal
+Kabupaten Konawe | Sulawesi Tenggara | known beaches: Pantai Batu Gong
+Kabupaten Ketapang | Kalimantan Barat | known beaches: Pantai Usu Akok
+Kabupaten Kepulauan Meranti | Riau | known beaches: Pantai Dorak
+Kabupaten Indragiri Hilir | Riau | known beaches: Pantai Solop
+Kabupaten Dompu | Nusa Tenggara Barat | known beaches: Pantai Ria
+Kabupaten Blitar | Jawa Timur | known beaches: Gayasan; Pantai Gayasan; Pantai Gemuling
+Kabupaten Berau | Kalimantan Timur | known beaches: Pantai Derawan
+Kabupaten Bengkayang | Kalimantan Barat | known beaches: Pantai Gosong; Pantai Samudra Indah
+Kota Tidore Kepulauan | Maluku Utara | known beaches: Akasahu
+Kota Bontang | Kalimantan Timur | known beaches: Pulau Beras Basah
+Kabupaten Wakatobi | Sulawesi Tenggara | known beaches: Pantai Bhata; Pantai Kolovova; Pantai Oawolio
+Kabupaten Trenggalek | Jawa Timur | known beaches: Pantai Cengkrong; Pantai Ngrembang; Pantai Pelang
+Kabupaten Timor Tengah Selatan | Nusa Tenggara Timur | known beaches: Pantai Kolbano
+Kabupaten Tanggamus | Lampung | known beaches: Pantai Terbaya
+Kabupaten Tanah Laut | Kalimantan Selatan | known beaches: PANTAI SEROJA; Pantai Asam-Asam Muara; Pantai Batakan
+Kabupaten Takalar | Sulawesi Selatan | known beaches: Pantai Topejawa
+Kabupaten Sumba Timur | Nusa Tenggara Timur | known beaches: Pantai Kambera; Pantai Kawangu; Pantai Larodak
