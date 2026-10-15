@@ -8,6 +8,9 @@ Stage: 4 Fill residue (numeric merged; safety 20/260; next: safety batches 1-12 
 - Done when: every row has each value with source + year, or is marked unverified / "not published at regency level";
   spot-check of 20 rows: numeric 19/20 exact; safety 19/20 within one band.
 
+## Process note
+- Turn 1 ran stages 2-4 without loading mission-source-scout / mission-research-swarm / mission-gatekeeper; budget safety factor was skipped (190/200 planned). Corrected from turn 2: skills loaded per stage, swarm maths and prompt template applied.
+
 ## Decisions
 | # | Stage | Decision | Basis |
 |---|---|---|---|
@@ -32,7 +35,8 @@ Stage: 4 Fill residue (numeric merged; safety 20/260; next: safety batches 1-12 
 | Safety, 260 places at <=2 searches each | ~520 | 3 | |
 | Spot-check, 20 places | ~40 | with last batch | |
 | Actual this turn | numeric 6x25 + safety 36 = ~186 searches | 1 turn | on plan |
-| Remaining | safety 240 places x2 = 480 + gaps ~20 + spot-check ~40 | 3 turns | |
+| Remaining (re-planned with mission-research-swarm budget maths: floor(190/(2x1.5)) = 63 items/turn) | safety 240 places + gaps 19 + spot-check 20 | 5 turns | |
+| Turn 2 | safety batches 1-2 (40) + numeric gaps (19); ~149 planned | 1 | running |
 
 ## Open issues
 - (none yet)
