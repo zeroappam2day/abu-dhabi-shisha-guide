@@ -55,3 +55,7 @@ UNEMPLOYMENT_BANDS = [       # national 4.85%
     (5.5, 7, "Above national"), (7, None, "High"),
 ]
 BAND_MISSING = "Unverified"
+UMK_BANDS = [                # IDR/month (UMK 2026); (lo, hi, label)
+    (None, 2_500_000, "< IDR 2.5M"), (2_500_000, 3_000_000, "IDR 2.5M-3.0M"), (3_000_000, 3_500_000, "IDR 3.0M-3.5M"),
+    (3_500_000, 5_000_000, "IDR 3.5M-5.0M"), (5_000_000, None, ">= IDR 5.0M"),
+]

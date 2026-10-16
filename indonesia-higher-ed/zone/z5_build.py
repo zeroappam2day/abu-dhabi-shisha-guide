@@ -22,12 +22,12 @@ def band_label(lo, hi, name):
     return f"{name} ({rng})"
 
 
-def band(v, bands):
+def band(v, bands, label=band_label):
     if not isinstance(v, (int, float)):
         return Z.BAND_MISSING
     for lo, hi, name in bands:
         if (lo is None or v >= lo) and (hi is None or v < hi):
-            return band_label(lo, hi, name)
+            return label(lo, hi, name)
     raise ValueError(f"{v} outside all bands")
 
 wb = load_workbook(Z.WORKBOOK, read_only=True)
@@ -92,6 +92,7 @@ for r in rows:
     d["Safety (walking around)"], d["Safety evidence"] = d["Safety (v2)"], d["Safety evidence (v2)"]
     d["Unemployment rate % (all ages)"], d["Poverty rate %"] = d["Unemployment % (v2)"], d["Poverty % (v2)"]
     d["Poverty band"], d["Unemployment band"] = d["Poverty band (v2)"], d["Unemployment band (v2)"]
+    d["UMK band"] = band(d["UMK 2026 (IDR/month)"], Z.UMK_BANDS, lambda lo, hi, name: name)
     d["institutions"] = sorted(inst[(d["City/Regency"], d["Province"])])
     data.append(d)
 patches = [
@@ -107,10 +108,12 @@ patches = [
      "const OFF={prov:new Set(),saf:new Set(),umk:new Set(),swim:new Set(),zone:new Set(),pov:new Set(),une:new Set()}"),
     ('vals.map(v=>`<label><input type="checkbox" value="${esc(v)}" checked> ${esc(v)}</label>`)',
      'vals.map(v=>`<label><input type="checkbox" value="${esc(v)}" checked> ${esc(v)} <span class="muted cnt" data-v="${esc(v)}"></span></label>`)'),
+    ('buildMS("umk","Wage basis",[...new Set(DATA.map(d=>d["UMK basis"]))].sort());',
+     'buildMS("umk","UMK 2026",BANDS.umk.filter(v=>DATA.some(d=>d["UMK band"]===v)));'),
     ('buildMS("swim",', 'buildMS("pov","Poverty",BANDS.pov.filter(v=>DATA.some(d=>d["Poverty band"]===v)));buildMS("une","Unemployment",BANDS.une.filter(v=>DATA.some(d=>d["Unemployment band"]===v)));\nbuildMS("swim",'),
     ('!OFF.prov.has(d.Province)&&!OFF.saf.has(d["Safety (walking around)"])&&!OFF.umk.has(d["UMK basis"])&&!OFF.swim.has(d["Swimmable sand beach"])&&!OFF.zone.has(d["Priority zone"])&&\n(!q||(d["City/Regency"]+" "+d.Province+" "+d.institutions.map(i=>i[0]).join(" ")).toLowerCase().includes(q)))',
      'pass(d,q))'),
-    ("function rows(){", 'const FIELD={prov:"Province",saf:"Safety (walking around)",umk:"UMK basis",swim:"Swimmable sand beach",zone:"Priority zone",pov:"Poverty band",une:"Unemployment band"};\n'
+    ("function rows(){", 'const FIELD={prov:"Province",saf:"Safety (walking around)",umk:"UMK band",swim:"Swimmable sand beach",zone:"Priority zone",pov:"Poverty band",une:"Unemployment band"};\n'
      'function pass(d,q,skip){for(const id in FIELD)if(id!==skip&&OFF[id].has(d[FIELD[id]]))return false;\n'
      'return !q||(d["City/Regency"]+" "+d.Province+" "+d.institutions.map(i=>i[0]).join(" ")).toLowerCase().includes(q)}\n'
      'function counts(){const q=$("q").value.trim().toLowerCase();for(const id in MSVALS){const c={};DATA.forEach(d=>{if(pass(d,q,id))c[d[FIELD[id]]]=(c[d[FIELD[id]]]||0)+1});\n'
@@ -127,7 +130,8 @@ for a, b in patches:
     assert html.count(a) == 1, a[:60]
     html = html.replace(a, b)
 bands = {"pov": [band_label(*b) for b in Z.POVERTY_BANDS] + [Z.BAND_MISSING],
-         "une": [band_label(*b) for b in Z.UNEMPLOYMENT_BANDS] + [Z.BAND_MISSING]}
+         "une": [band_label(*b) for b in Z.UNEMPLOYMENT_BANDS] + [Z.BAND_MISSING],
+         "umk": [b[2] for b in Z.UMK_BANDS] + [Z.BAND_MISSING]}
 html = html.replace("const DATA=__DATA__;", "const BANDS=" + json.dumps(bands) + ";\nconst DATA=__DATA__;")
 Z.OUT_HTML.write_text(html.replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/")), encoding="utf-8")
 
@@ -147,6 +151,7 @@ gate("z5", [
     ("html has 70 places with v2 values", len(hdata) == Z.EXPECTED_ROWS and "__DATA__" not in html_back
      and all(d["Safety (walking around)"] == d["Safety (v2)"] and d["Swimmable sand beach"] == d["Swim (v2)"] for d in hdata),
      f"{len(hdata)} places"),
+    ("every UMK value in one band", all(d["UMK band"] != Z.BAND_MISSING for d in hdata), dict(Counter(d["UMK band"] for d in hdata))),
     ("every poverty/unemployment value in exactly one band", all(r[26] and r[27] for r in back[1:]),
      f"pov {dict(Counter(r[26] for r in back[1:]))}; une {dict(Counter(r[27] for r in back[1:]))}"),
     ("baseline intact", ok, msg),
