@@ -18,6 +18,8 @@ def dated_in_window(ev):
 
 base = read_csv(Z.ZONE_LIST)
 got = merge_outs("safety_out_*.csv")
+retry = {k: r for k, r in merge_outs("safety_retry_out_*.csv").items() if r["safety_v2"] in ("High", "Medium", "Low")}
+got.update(retry)
 out = []
 for b in base:
     k = (b["City/Regency"], b["Province"])
@@ -25,7 +27,7 @@ for b in base:
     if k in got:
         r = got[k]
         val, ev, src = r["safety_v2"], r["evidence"], "researched (zone)"
-        if k in Z.SAFETY_OVERRIDES:
+        if k in Z.SAFETY_OVERRIDES and k not in retry:
             val, why = Z.SAFETY_OVERRIDES[k]
             ev = f"UNVERIFIED (reviewer: {why}): {ev}"
     else:
