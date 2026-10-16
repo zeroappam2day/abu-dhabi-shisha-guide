@@ -1,6 +1,6 @@
 PASS  rows  [70]
 PASS  researched set = 47 gaps  [47 vs 47]
-PASS  values in SAFETY_VALUES  [{'Medium': 21, 'Low': 9, 'No rating: <2 dated sources found': 39, 'High': 1}]
-PASS  >=2 dated in-window URLs per new rating  [8 new ratings; weak=[]]
+PASS  values in SAFETY_VALUES  [{'Medium': 48, 'Low': 15, 'No rating: <2 dated sources found': 6, 'High': 1}]
+PASS  >=2 dated in-window URLs per new rating  [41 new ratings; weak=[]]
 PASS  info: carried ratings with <2 machine-readable dates  [0/23: []]
 PASS  baseline intact  [148 files match]

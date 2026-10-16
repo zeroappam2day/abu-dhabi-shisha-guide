@@ -1,5 +1,5 @@
 # Mission: close evidence gaps for the 70 priority-zone places (overlay only)
-Stage: Z3 Numbers (done); stop before Z4 on safety recall   Updated: 2026-10-15
+Stage: Z5 Deliver (done)   Updated: 2026-10-15
 
 ## Outcome
 - Deliverable: zone/output/priority_zone.xlsx + .html (70 rows; original 18 columns unchanged + v2 columns + Changed).
@@ -18,6 +18,9 @@ Stage: Z3 Numbers (done); stop before Z4 on safety recall   Updated: 2026-10-15
 | 7 | Z2 | Situbondo Medium->No rating (both sources = same press conference) | independence rule |
 | 8 | Z2 | Separate police accounts in one outlet (detik) count as independent | agent prompt rule |
 
+| 9 | Z2 | User chose retry of 39 unrated via news tag/search pages; 33 rated, 6 remain No rating | user |
+| 10 | Z4 | Spot-check seed 4001: swim 18/20, safety 12/12 within one band (9 exact) | spotcheck_v2.csv |
+
 ## Budget ledger (200 searches/turn shared, 10 reserved)
 | Stage | Items | Planned searches | Note |
 |---|---|---|---|
@@ -29,5 +32,7 @@ Stage: Z3 Numbers (done); stop before Z4 on safety recall   Updated: 2026-10-15
 ## Actuals (turn 1)
 Searches ~167/200: swim 46, safety 88, numbers 32, preflight 1.
 
+Turn 2: ~140 searches (safety retry ~24 + direct page fetches; spot-check 54).
+
 ## Open issues
-- Safety recall: 8/47 gaps rated (batch 0 via detik/antara tag pages: 8/16; batches 1-2 via search: 1/31). rri.co.id unreachable (403/archive blocked).
+- Resolved: safety recall (retry lifted 8/47 to 41/47). rri.co.id still unreachable.

@@ -1,0 +1,7 @@
+PASS  xlsx rows  [70]
+PASS  xlsx columns  [26 = 18 + 8]
+PASS  original 18 columns unchanged  []
+PASS  no empty v2 cells (except UMK note)  []
+PASS  html has 70 places with v2 values  [70 places]
+PASS  baseline intact  [148 files match]
+PASS  no diff outside zone/ vs e34937f  [empty]

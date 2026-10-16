@@ -18,7 +18,8 @@ V2 = ["Swim (v2)", "Swim evidence (v2)", "Safety (v2)", "Safety evidence (v2)", 
 
 wb = load_workbook(Z.WORKBOOK, read_only=True)
 sl = list(wb[Z.SHEET].iter_rows(values_only=True))
-cols, orig = list(sl[0]), [r for r in sl[1:] if r[cols.index("Priority zone")] != Z.OUTSIDE]
+cols = list(sl[0])
+orig = [r for r in sl[1:] if r[cols.index("Priority zone")] != Z.OUTSIDE]
 key = lambda c, p: (c, p)
 swim = {key(r["city"], r["province"]): r for r in read_csv(Z.SWIM_V2)}
 safe = {key(r["city"], r["province"]): r for r in read_csv(Z.SAFETY_V2)}
@@ -99,13 +100,16 @@ same_orig = all(tuple(b[:18]) == tuple(o) for b, o in zip(back[1:], orig))
 diff = subprocess.run(["git", "diff", "--stat", Z.BASELINE_COMMIT, "--", "indonesia-higher-ed", ":!indonesia-higher-ed/zone"],
                       cwd=Z.ROOT.parent, capture_output=True, text=True).stdout.strip()
 html_back = Z.OUT_HTML.read_text(encoding="utf-8")
+hdata = json.loads(html_back.split("const DATA=", 1)[1].split(";\nconst COLS", 1)[0].replace("<\\/", "</"))
 ok, msg = baseline_ok()
 gate("z5", [
     ("xlsx rows", len(back) - 1 == Z.EXPECTED_ROWS, f"{len(back) - 1}"),
     ("xlsx columns", list(back[0]) == cols + V2, f"{len(back[0])} = 18 + {len(V2)}"),
     ("original 18 columns unchanged", same_orig, ""),
     ("no empty v2 cells (except UMK note)", all(all(c not in (None, "") for c in r[18:24]) and r[25] for r in back[1:]), ""),
-    ("html has 70 places", html_back.count('"City/Regency"') == Z.EXPECTED_ROWS and "__DATA__" not in html_back, ""),
+    ("html has 70 places with v2 values", len(hdata) == Z.EXPECTED_ROWS and "__DATA__" not in html_back
+     and all(d["Safety (walking around)"] == d["Safety (v2)"] and d["Swimmable sand beach"] == d["Swim (v2)"] for d in hdata),
+     f"{len(hdata)} places"),
     ("baseline intact", ok, msg),
     ("no diff outside zone/ vs e34937f", diff == "", diff[:200] or "empty"),
 ])

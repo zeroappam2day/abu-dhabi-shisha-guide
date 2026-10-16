@@ -1,5 +1,5 @@
 PASS  sample  [20 seed 4001]
 PASS  swim agree >= 18/20  [18/20; disagree=[('Kabupaten Tasikmalaya', 'Yes', 'Unverified'), ('Kabupaten Kulon Progo', 'No', 'Unverified')]]
-PASS  safety within one band where both rated  [5 both rated; exact 4; bad=[]]
-PASS  info: safety coverage mismatch  [[('Kabupaten Tasikmalaya', 'Medium', 'No rating'), ('Kabupaten Jember', 'No rating', 'Medium'), ('Kabupaten Kulon Progo', 'High', 'No rating'), ('Kabupaten Pekalongan', 'No rating', 'Medium'), ('Kabupaten Tabanan', 'No rating', 'Medium'), ('Kabupaten Sumenep', 'No rating', 'Medium'), ('Kabupaten Gunung Kidul', 'No rating', 'Medium'), ('Kabupaten Pamekasan', 'No rating', 'Medium'), ('Kabupaten Rembang', 'No rating', 'Medium'), ('Kabupaten Kendal', 'No rating', 'Medium')]]
+PASS  safety within one band where both rated  [12 both rated; exact 9; bad=[]]
+PASS  info: safety coverage mismatch  [[('Kabupaten Tasikmalaya', 'Medium', 'No rating'), ('Kabupaten Tegal', 'Medium', 'No rating'), ('Kabupaten Kulon Progo', 'High', 'No rating'), ('Kota Cilegon', 'Medium', 'No rating'), ('Kota Pekalongan', 'Medium', 'No rating'), ('Kabupaten Purworejo', 'Medium', 'No rating'), ('Kabupaten Wonogiri', 'Medium', 'No rating'), ('Kabupaten Rembang', 'No rating', 'Medium')]]
 PASS  baseline intact  [148 files match]
