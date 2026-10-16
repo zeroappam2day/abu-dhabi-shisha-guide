@@ -41,3 +41,17 @@ SAFETY_OVERRIDES = {
     ("Kabupaten Situbondo", "Jawa Timur"): ("No rating: <2 dated sources found",
                                             "both sources report the same 2026-06-30 police press conference (not independent)"),
 }
+
+# Range bands for the poverty / unemployment filters. Lower bound inclusive, upper exclusive; None = open.
+# Descriptors are relative to the national rate (opened sources below). Non-numeric values -> BAND_MISSING.
+NATIONAL_POVERTY = (8.47, "BPS P0 March 2025 - https://finance.detik.com/berita-ekonomi-bisnis/d-8028465/bps-angka-kemiskinan-ri-terendah-dalam-2-dekade/amp")
+NATIONAL_UNEMPLOYMENT = (4.85, "BPS TPT August 2025 - https://www.jawapos.com/nasional/2511050416/bps-proporsi-pekerja-formal-meningkat-tingkat-pengangguran-terbuka-turun")
+POVERTY_BANDS = [            # (lo, hi, descriptor); national 8.47%
+    (None, 5, "Very low"), (5, 8, "Below national"), (8, 10, "Near national"),
+    (10, 13, "Above national"), (13, None, "High"),
+]
+UNEMPLOYMENT_BANDS = [       # national 4.85%
+    (None, 3, "Very low"), (3, 4.5, "Below national"), (4.5, 5.5, "Near national"),
+    (5.5, 7, "Above national"), (7, None, "High"),
+]
+BAND_MISSING = "Unverified"
